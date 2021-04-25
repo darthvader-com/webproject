@@ -16,8 +16,6 @@
 		<div class="jumbotron">
 			<h1>로그인</h1>
 		</div>
-		<!--<c:out value="${sessionScope.user}"/>-->
-		
 		<c:choose>
 			<c:when test="${sessionScope.user == null }">
 				<form action="/login.do" method="POST">
