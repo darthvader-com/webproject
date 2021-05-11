@@ -4,7 +4,7 @@
 <mapper namespace="main">
 
 	<select id="selectList" parameterType="tuser" resultType="HashMap">
-		SELECT /* selectList as main-mapper.xml */
+		SELECT /* selectList as MainController*/
 			  USER_ID as userId,
 			  USER_PWD as userPwd,
 			  USER_NAME as userName,
@@ -18,5 +18,22 @@
 	    WHERE USER_ID = #{userId, jdbcType=VARCHAR}
 	      AND USER_PWD = #{userPwd, jdbcType=VARCHAR}
 	</select>
+	
+	<insert id="saveSignupgo" parameterType="tuser">
+		INSERT INTO TUSER  /* saveSignupgo as MainController */
+		  (USER_ID,
+		   USER_PWD, 
+		   USER_NAME,
+		   EMAIL,
+		   INSERT_DATE,
+		   MODIFY_DATE)
+		VALUES
+		  (#{userId, jdbcType=VARCHAR},
+		   #{userPwd, jdbcType=VARCHAR},
+		   #{userName, jdbcType=VARCHAR},
+		   #{email, jdbcType=VARCHAR},
+		   SYSDATE,
+		   SYSDATE)
+	</insert>
 	
 </mapper>

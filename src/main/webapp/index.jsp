@@ -14,8 +14,8 @@
 <body>
 	<div class="container" style="padding-top: 50px;">
 		<div class="jumbotron">
-			<h1>로그인</h1>
-		</div>
+			<h1>로그인</h1> 
+		</div> 
 		<c:choose>
 			<c:when test="${sessionScope.user == null }">
 				<form action="/login.do" method="POST">
@@ -41,6 +41,7 @@
 				    <p class="card-text">이메일 ${user[0].EMAIL}</p>
 				    <p class="card-text">가입일 ${user[0].INSERTDATE}</p>
 				    <a href="#" class="btn btn-primary">프로필</a>
+				    <a href="/inventory.do" class="btn btn-primary">보관함</a>
 					<button type="button" class="btn btn-primary" onclick="logout();">로그아웃</button>
 					</div>
 				</div>

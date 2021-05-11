@@ -14,4 +14,8 @@ public class MainDAO {
 		return session.selectList("main.selectList", user);
 	}
 
+	public int saveSignupgo(SqlSessionTemplate session, Tuser tuser) {
+		return session.insert("main.saveSignupgo", tuser);
+	}
+
 }

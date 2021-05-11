@@ -25,4 +25,10 @@ public class MainServiceImpl implements MainService {
 		return mainDAO.selectLogin(session, user);
 	}
 
+	@Override
+	public int saveSignupgo(Tuser tuser) {
+		return mainDAO.saveSignupgo(session, tuser);
+		
+	}
+
 }

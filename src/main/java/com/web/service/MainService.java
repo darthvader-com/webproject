@@ -8,4 +8,6 @@ public interface MainService {
 
 	List<?>  selectLogin(Tuser user);
 
+	int saveSignupgo(Tuser tuser);
+
 }

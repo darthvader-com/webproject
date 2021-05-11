@@ -14,4 +14,8 @@ public interface MainController {
 
 	String signup();
 
+	String signupgo(HashMap<String, String> hMap);
+
+	String inventory(HttpServletRequest request);
+
 }

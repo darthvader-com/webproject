@@ -11,18 +11,19 @@ public class Tuser {
 	private String useYn;
 	private Date insertDate;
 	private Date modifyDate;
-
+	
 	@Override
 	public String toString() {
-		return "Tuser [userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName + ", email=" + email + ", useYn=" + useYn + ", insertDate=" + insertDate + ", modifyDate=" + modifyDate + "]";
+		return "Tuser [userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName + ", email=" + email
+				+ ", useYn=" + useYn + ", insertDate=" + insertDate + ", modifyDate=" + modifyDate + "]";
 	}
 
 	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userid) {
-		this.userId = userid;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getUserPwd() {
