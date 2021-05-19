@@ -1,5 +1,6 @@
 package com.web.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -29,6 +30,16 @@ public class MainServiceImpl implements MainService {
 	public int saveSignupgo(Tuser tuser) {
 		return mainDAO.saveSignupgo(session, tuser);
 		
+	}
+
+	@Override
+	public List<?> selectInventory(String userNo) {
+		return mainDAO.selectInventory(session, userNo);
+	}
+
+	@Override
+	public int updateEnchant(HashMap<String, String> hMap) {
+		return mainDAO.updateEnchant(session, hMap);
 	}
 
 }

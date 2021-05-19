@@ -16,6 +16,8 @@ public interface MainController {
 
 	String signupgo(HashMap<String, String> hMap);
 
-	String inventory(HttpServletRequest request);
+	String inventory(HttpServletRequest request, HashMap<String, String> hMap);
+
+	String enchant(HttpServletRequest request, HashMap<String, String> hMap);
 
 }

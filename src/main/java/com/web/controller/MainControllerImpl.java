@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.web.common.SHA256;
 import com.web.model.Tuser;
@@ -77,7 +78,7 @@ public class MainControllerImpl implements MainController {
 	@Override
 	@RequestMapping(value = "/signupgo.do", method = RequestMethod.POST)
 	public String signupgo(@RequestParam HashMap<String, String> hMap) {
-		
+
 		String page = "";
 
 		Tuser tuser = new Tuser();
@@ -86,30 +87,51 @@ public class MainControllerImpl implements MainController {
 			tuser.setUserPwd(SHA256.input(hMap.get("userPwd")));
 			tuser.setUserName(hMap.get("userName"));
 			tuser.setEmail(hMap.get("email"));
-			
+
 			int executeRtn = mainService.saveSignupgo(tuser);
-			
+
 			System.out.println(executeRtn);
-			
-			if(executeRtn > 0) {
+
+			if (executeRtn > 0) {
 				page = "signupsuccess";
-			} else page = "signupfail";
-			
+			} else
+				page = "signupfail";
+
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
 
 		return page;
 	}
-	
+
 	// 보관함 페이지 이동
 	@Override
 	@RequestMapping(value = "/inventory.do", method = RequestMethod.GET)
-	public String inventory(HttpServletRequest request) {
+	public String inventory(HttpServletRequest request, @RequestParam HashMap<String, String> hMap) {
 		HttpSession session = request.getSession();
-		if(session.getAttribute("user") == null) {
+		if (session.getAttribute("user") == null) {
 			return "needlogin";
-		} else return "inventory";
+		} else {
+			List<?> list = mainService.selectInventory(hMap.get("userNo"));
+			request.setAttribute("itemList", list);
+			return "inventory";
+		}
+	}
+
+	@Override
+	@ResponseBody
+	@RequestMapping(value = "/enchant.do", method = RequestMethod.POST, produces = "application/text; charset=utf8")
+	public String enchant(HttpServletRequest request, @RequestParam HashMap<String, String> hMap) {
+		int enchantValue = (int) (Math.random() * 100) + 1;
+		String resultRtn = "";
+		if (1 <= enchantValue && enchantValue <= 50) {
+			int executeRtn = mainService.updateEnchant(hMap);
+			if (executeRtn > 0) {
+				resultRtn = "success";
+			}
+		} else
+			resultRtn = "fail";
+		return resultRtn;
 	}
 
 }

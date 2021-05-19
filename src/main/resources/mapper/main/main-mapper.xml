@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="main">
@@ -8,6 +8,7 @@
 			  USER_ID as userId,
 			  USER_PWD as userPwd,
 			  USER_NAME as userName,
+			  USER_NO as userNo,
 			  EMAIL as email,
 			  USE_YN as useYn,
 			  TO_CHAR(INSERT_DATE, 'yyyy') || '년 ' || TO_CHAR(INSERT_DATE, 'mm') || '월' ||
@@ -35,5 +36,37 @@
 		   SYSDATE,
 		   SYSDATE)
 	</insert>
+	
+	<select id="selectInventory" parameterType="String" resultType="HashMap">
+		SELECT /* selectInventory as MainController */
+		       A.USER_NO,
+		       B.ITEM_NO,
+		       B.ITEM_LEVEL,
+		       C.ITEM_NAME,
+		       C.ITEM_INFO,
+		       C.ITEM_DMG,
+		       C.ITEM_DEF,
+		       B.DELETE_YN,
+		       C.ITEM_IMAGE1,
+		       C.ITEM_IMAGE2,
+		       C.ITEM_IMAGE3,
+		       C.ITEM_IMAGE4,
+		       C.ITEM_IMAGE5,
+		       B.ITEM_KEY
+		  FROM TUSER A, TINVENTORY B, TITEM C
+		 WHERE A.USER_NO = B.USER_NO
+		   AND B.ITEM_NO = C.ITEM_NO
+		   AND B.DELETE_YN = '0'
+		   AND A.USER_NO = #{userNo, jdbcType=VARCHAR}
+	</select>
+	
+	
+	<update id="updateEnchant" parameterType="HashMap">
+		UPDATE /* updateEnchant as MainController */ 
+		       TINVENTORY A
+		   SET A.ITEM_LEVEL = A.ITEM_LEVEL + 1 
+		 WHERE A.USER_NO = #{userNo, jdbcType=VARCHAR}
+		   AND A.ITEM_KEY = #{itemKey, jdbcType=VARCHAR}
+	</update>
 	
 </mapper>
