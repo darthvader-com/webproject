@@ -16,6 +16,7 @@
 		<div class="jumbotron">
 			<h1>로그인</h1>
 		</div>
+		<button type="button" class="btn btn-primary" onclick="getjson();">API TEST</button>
 		<c:choose>
 			<c:when test="${sessionScope.user == null }">
 				<form action="/login.do" method="POST">
@@ -43,6 +44,7 @@
 						<a href="#" class="btn btn-primary">프로필</a>
 						<a href="<c:url value="/inventory.do"><c:param name="userNo" value="${user[0].USERNO}"></c:param></c:url>" class="btn btn-primary">보관함</a>
 						<button type="button" class="btn btn-primary" onclick="logout();">로그아웃</button>
+						<hr>
 					</div>
 				</div>
 			</c:when>
@@ -56,6 +58,10 @@
 
 		function logout() {
 			window.location.href = "/logout.do"
+		}
+		
+		function getjson() {
+			window.location.href = "/getjson.do"
 		}
 	</script>
 

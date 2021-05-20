@@ -1,20 +1,31 @@
 package com.web.controller;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.IOUtils;
+import org.json.JSONObject;
+import org.json.XML;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.web.common.SHA256;
 import com.web.model.Tuser;
 import com.web.service.MainService;
@@ -132,6 +143,97 @@ public class MainControllerImpl implements MainController {
 		} else
 			resultRtn = "fail";
 		return resultRtn;
+	}
+
+	// 테스트용
+	@SuppressWarnings("unchecked")
+	@Override
+	@RequestMapping(value = "/getjson.do", method = RequestMethod.GET)
+	public String getjson(HttpServletRequest request) {
+
+		final String SERVICE_KEY = "q%2FFm6LYch%2F0g182SfkDmDHy403n2UcokdweYJvJ1NIbyAK23zccxMDUin4AbuZT0yKWpYfh%2F135f4DMl4HB5wA%3D%3D";
+		final String CORONA_URL = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson?";
+		BufferedReader br = null;
+		ArrayList<HashMap<String, Object>> list = null;
+
+		
+		String startDate = "20210519";
+		String endDate = "20210519";
+
+		try {
+			URL url = new URL(CORONA_URL + "serviceKey=" + SERVICE_KEY + "&pageNo=1&numOfRows=19&startCreateDt=" + startDate + "&endCreateDt=" + endDate);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			int responseCode = conn.getResponseCode();
+
+			if (responseCode == HttpURLConnection.HTTP_OK) {
+				br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+				String xml = IOUtils.toString(br);
+
+				JSONObject jp = XML.toJSONObject(xml);
+
+				String str = jp.toString();
+
+				ObjectMapper objectMapper = new ObjectMapper();
+				Map<String, Object> map = new HashMap<String, Object>();
+				map = objectMapper.readValue(str, new TypeReference<Map<String, Object>>() {
+				});
+
+				Map<String, Object> dataResponse = (Map<String, Object>) map.get("response");
+				Map<String, Object> body = (Map<String, Object>) dataResponse.get("body");
+				Map<String, Object> items = null;
+				List<Map<String, Object>> itemList = null;
+
+				items = (Map<String, Object>) body.get("items");
+				itemList = (List<Map<String, Object>>) items.get("item");
+
+//				System.out.println(items.toString());
+//				System.out.println(itemList.toString());
+//				
+				list = new ArrayList<HashMap<String, Object>>();
+				HashMap<String, Object> resultMap = null;
+				
+				System.out.println("확진자수");
+				for(int i = 0; i < itemList.size(); i++) {
+					resultMap = new HashMap<String, Object>();
+					resultMap.put("city", itemList.get(i).get("gubun"));
+					resultMap.put("incDec", itemList.get(i).get("incDec"));
+					resultMap.put("deathCnt", itemList.get(i).get("deathCnt"));
+					resultMap.put("isolClearCnt", itemList.get(i).get("isolClearCnt"));
+					resultMap.put("defCnt", itemList.get(i).get("defCnt"));
+//					System.out.println(itemList.get(i).get("gubun") + "-> " + itemList.get(i).get("incDec") + "명");
+//					System.out.println(itemList.get(i).get("gubun") + "-> " + itemList.get(i).get("incDec") + "명");
+					
+					list.add(resultMap);
+				}
+
+//				JSONObject jo = (JSONObject) jp.parse(br);
+//				System.out.println(jo.toString());
+//				JSONArray jArray = (JSONArray) jo.get("data");
+
+//				for (int i = 0; i < jArray.size(); i++) {
+//					JSONObject o = (JSONObject) jArray.get(i);
+//
+//					map.put("division", (String) o.get("구분"));
+//					map.put("no", (String) o.get("노선번호"));
+//					map.put("ssid", (String) o.get("서비스세트식별자(SSID)"));
+//					map.put("installNo", (String) o.get("설치대수"));
+//					map.put("dueDate", (String) o.get("설치완료일"));
+//					map.put("name", (String) o.get("운수사명"));
+//					map.put("garage", (String) o.get("차고지"));
+//					map.put("agency", (String) o.get("통신사"));
+//
+//					list.add(map);
+//				}
+			}
+
+			request.setAttribute("list", list);
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return "getjson";
 	}
 
 }
