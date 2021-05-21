@@ -20,7 +20,7 @@ public class Scheduler {
 	public void schedulerStatus() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd HH:mm:ss");
 		String strDate = sdf.format(new Date());
-		System.out.println("[" + strDate + "]" + "  서버 정상 실행 중");
+		System.out.println("[INFO](" + strDate + ")" + "  서버 정상 실행 중");
 	}
 
 	// 매시간 정각 0 0 * * * *
