@@ -15,4 +15,8 @@ public interface MainService {
 
 	int updateEnchant(HashMap<String, String> hMap);
 
+	int insertCorona(HashMap<String, Object> resultMap);
+
+	List<?> selectCorona();
+
 }

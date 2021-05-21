@@ -29,7 +29,7 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public int saveSignupgo(Tuser tuser) {
 		return mainDAO.saveSignupgo(session, tuser);
-		
+
 	}
 
 	@Override
@@ -40,6 +40,16 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public int updateEnchant(HashMap<String, String> hMap) {
 		return mainDAO.updateEnchant(session, hMap);
+	}
+
+	@Override
+	public int insertCorona(HashMap<String, Object> hMap) {
+		return mainDAO.insertCorona(session, hMap);
+	}
+
+	@Override
+	public List<?> selectCorona() {
+		return mainDAO.selectCorona(session);
 	}
 
 }

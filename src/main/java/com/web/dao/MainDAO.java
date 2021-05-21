@@ -27,4 +27,12 @@ public class MainDAO {
 		return session.update("main.updateEnchant", hMap);
 	}
 
+	public int insertCorona(SqlSessionTemplate session, HashMap<String, Object> hMap) {
+		return session.insert("main.insertCorona", hMap);
+	}
+
+	public List<?> selectCorona(SqlSessionTemplate session) {
+		return session.selectList("main.selectCorona", null);
+	}
+
 }

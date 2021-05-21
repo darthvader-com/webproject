@@ -22,4 +22,6 @@ public interface MainController {
 
 	String corona(HttpServletRequest request);
 
+	void insertCoronaBatch();
+
 }

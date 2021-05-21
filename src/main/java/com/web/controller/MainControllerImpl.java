@@ -148,10 +148,27 @@ public class MainControllerImpl implements MainController {
 	}
 
 	// 테스트용
-	@SuppressWarnings("unchecked")
 	@Override
 	@RequestMapping(value = "/corona.do", method = RequestMethod.GET)
 	public String corona(HttpServletRequest request) {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String dateStr = sdf.format(new Date());
+
+		List<?> list = mainService.selectCorona();
+
+		request.setAttribute("list", list);
+		request.setAttribute("year", dateStr.substring(0, 4));
+		request.setAttribute("month", dateStr.substring(4, 6));
+		request.setAttribute("date", dateStr.substring(6, 8));
+
+		return "corona";
+	}
+
+	@SuppressWarnings("all")
+	@Override
+	@RequestMapping(value = "/coronatest.do", method = RequestMethod.GET)
+	public void insertCoronaBatch() {
 
 		final String SERVICE_KEY = "q%2FFm6LYch%2F0g182SfkDmDHy403n2UcokdweYJvJ1NIbyAK23zccxMDUin4AbuZT0yKWpYfh%2F135f4DMl4HB5wA%3D%3D";
 		final String CORONA_URL = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson?";
@@ -162,7 +179,8 @@ public class MainControllerImpl implements MainController {
 		String dateStr = sdf.format(new Date());
 
 		try {
-			URL url = new URL(CORONA_URL + "serviceKey=" + SERVICE_KEY + "&pageNo=1&numOfRows=19&startCreateDt=" + dateStr + "&endCreateDt=" + dateStr);
+			URL url = new URL(CORONA_URL + "serviceKey=" + SERVICE_KEY + "&pageNo=1&numOfRows=19&startCreateDt="
+					+ dateStr + "&endCreateDt=" + dateStr);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			int responseCode = conn.getResponseCode();
 
@@ -188,55 +206,112 @@ public class MainControllerImpl implements MainController {
 				items = (Map<String, Object>) body.get("items");
 				itemList = (List<Map<String, Object>>) items.get("item");
 
-//				System.out.println(items.toString());
-//				System.out.println(itemList.toString());
-//				
 				list = new ArrayList<HashMap<String, Object>>();
 				HashMap<String, Object> resultMap = null;
-				
-				for(int i = itemList.size() - 1; i >= 0; i--) {
+
+				for (int i = itemList.size() - 1; i >= 0; i--) {
 					resultMap = new HashMap<String, Object>();
-					resultMap.put("city", itemList.get(i).get("gubun"));
-					resultMap.put("incDec", itemList.get(i).get("incDec"));
-					resultMap.put("deathCnt", itemList.get(i).get("deathCnt"));
-					resultMap.put("isolClearCnt", itemList.get(i).get("isolClearCnt"));
-					resultMap.put("defCnt", itemList.get(i).get("defCnt"));
-//					System.out.println(itemList.get(i).get("gubun") + "-> " + itemList.get(i).get("incDec") + "명");
-//					System.out.println(itemList.get(i).get("gubun") + "-> " + itemList.get(i).get("incDec") + "명");
-					
-					list.add(resultMap);
+					resultMap.put("city", itemList.get(i).get("gubun")); // 도시
+					resultMap.put("incDec", itemList.get(i).get("incDec")); // 전일대비증감
+					resultMap.put("deathCnt", itemList.get(i).get("deathCnt")); // 사망자
+					resultMap.put("isolClearCnt", itemList.get(i).get("isolClearCnt")); // 격리해제
+					resultMap.put("isolIngCnt", itemList.get(i).get("isolIngCnt")); // 격리중
+					resultMap.put("defCnt", itemList.get(i).get("defCnt")); // 확진자
+					resultMap.put("stdDay", itemList.get(i).get("stdDay")); // 기준일시
+					resultMap.put("overFlowCnt", itemList.get(i).get("overFlowCnt")); // 해외유입감염
+					resultMap.put("localOccCnt", itemList.get(i).get("localOccCnt")); // 지역감염
+
+					int executeRtn = mainService.insertCorona(resultMap);
+
+					if (executeRtn < 1) {
+						new Exception("CORONA INSERT ERROR");
+					} else {
+						System.out.println("CORONA INSERT SUCCESS");
+					}
 				}
-
-//				JSONObject jo = (JSONObject) jp.parse(br);
-//				System.out.println(jo.toString());
-//				JSONArray jArray = (JSONArray) jo.get("data");
-
-//				for (int i = 0; i < jArray.size(); i++) {
-//					JSONObject o = (JSONObject) jArray.get(i);
-//
-//					map.put("division", (String) o.get("구분"));
-//					map.put("no", (String) o.get("노선번호"));
-//					map.put("ssid", (String) o.get("서비스세트식별자(SSID)"));
-//					map.put("installNo", (String) o.get("설치대수"));
-//					map.put("dueDate", (String) o.get("설치완료일"));
-//					map.put("name", (String) o.get("운수사명"));
-//					map.put("garage", (String) o.get("차고지"));
-//					map.put("agency", (String) o.get("통신사"));
-//
-//					list.add(map);
-//				}
 			}
-
-			request.setAttribute("list", list);
-			request.setAttribute("year", dateStr.substring(0 ,4));
-			request.setAttribute("month", dateStr.substring(4, 6));
-			request.setAttribute("date", dateStr.substring(6, 8));
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 
-		return "corona";
 	}
-
 }
+
+/*
+ * 
+ * 
+ * final String SERVICE_KEY =
+ * "q%2FFm6LYch%2F0g182SfkDmDHy403n2UcokdweYJvJ1NIbyAK23zccxMDUin4AbuZT0yKWpYfh%2F135f4DMl4HB5wA%3D%3D";
+ * final String CORONA_URL =
+ * "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson?";
+ * BufferedReader br = null; ArrayList<HashMap<String, Object>> list = null;
+ * 
+ * SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd"); String dateStr =
+ * sdf.format(new Date());
+ * 
+ * try { URL url = new URL(CORONA_URL + "serviceKey=" + SERVICE_KEY +
+ * "&pageNo=1&numOfRows=19&startCreateDt=" + dateStr + "&endCreateDt=" +
+ * dateStr); HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+ * int responseCode = conn.getResponseCode();
+ * 
+ * if (responseCode == HttpURLConnection.HTTP_OK) { br = new BufferedReader(new
+ * InputStreamReader(conn.getInputStream()));
+ * 
+ * String xml = IOUtils.toString(br);
+ * 
+ * JSONObject jp = XML.toJSONObject(xml);
+ * 
+ * String str = jp.toString();
+ * 
+ * ObjectMapper objectMapper = new ObjectMapper(); Map<String, Object> map = new
+ * HashMap<String, Object>(); map = objectMapper.readValue(str, new
+ * TypeReference<Map<String, Object>>() { });
+ * 
+ * Map<String, Object> dataResponse = (Map<String, Object>) map.get("response");
+ * Map<String, Object> body = (Map<String, Object>) dataResponse.get("body");
+ * Map<String, Object> items = null; List<Map<String, Object>> itemList = null;
+ * 
+ * items = (Map<String, Object>) body.get("items"); itemList = (List<Map<String,
+ * Object>>) items.get("item");
+ * 
+ * // System.out.println(items.toString()); //
+ * System.out.println(itemList.toString()); // list = new
+ * ArrayList<HashMap<String, Object>>(); HashMap<String, Object> resultMap =
+ * null;
+ * 
+ * for (int i = itemList.size() - 1; i >= 0; i--) { resultMap = new
+ * HashMap<String, Object>(); resultMap.put("city",
+ * itemList.get(i).get("gubun")); resultMap.put("incDec",
+ * itemList.get(i).get("incDec")); resultMap.put("deathCnt",
+ * itemList.get(i).get("deathCnt")); resultMap.put("isolClearCnt",
+ * itemList.get(i).get("isolClearCnt")); resultMap.put("defCnt",
+ * itemList.get(i).get("defCnt")); //
+ * System.out.println(itemList.get(i).get("gubun") + "-> " +
+ * itemList.get(i).get("incDec") + "명"); //
+ * System.out.println(itemList.get(i).get("gubun") + "-> " +
+ * itemList.get(i).get("incDec") + "명");
+ * 
+ * list.add(resultMap); }
+ * 
+ * // JSONObject jo = (JSONObject) jp.parse(br); //
+ * System.out.println(jo.toString()); // JSONArray jArray = (JSONArray)
+ * jo.get("data");
+ * 
+ * // for (int i = 0; i < jArray.size(); i++) { // JSONObject o = (JSONObject)
+ * jArray.get(i); // // map.put("division", (String) o.get("구분")); //
+ * map.put("no", (String) o.get("노선번호")); // map.put("ssid", (String)
+ * o.get("서비스세트식별자(SSID)")); // map.put("installNo", (String) o.get("설치대수")); //
+ * map.put("dueDate", (String) o.get("설치완료일")); // map.put("name", (String)
+ * o.get("운수사명")); // map.put("garage", (String) o.get("차고지")); //
+ * map.put("agency", (String) o.get("통신사")); // // list.add(map); // } }
+ * 
+ * request.setAttribute("list", list); request.setAttribute("year",
+ * dateStr.substring(0, 4)); request.setAttribute("month", dateStr.substring(4,
+ * 6)); request.setAttribute("date", dateStr.substring(6, 8));
+ * 
+ * } catch (Exception e) { System.out.println(e.getMessage()); }
+ * 
+ * return "corona";
+ * 
+ */

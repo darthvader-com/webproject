@@ -69,4 +69,46 @@
 		   AND A.ITEM_KEY = #{itemKey, jdbcType=VARCHAR}
 	</update>
 	
+	
+	<insert id="insertCorona" parameterType="HashMap">
+		INSERT INTO TCORONA /* insertCorona as MainController */
+		  (CITY,
+		   DEF_CNT,
+		   INC_DEC,
+		   DEATH_CNT,
+		   ISOL_ING_CNT,
+		   ISOL_CLEAR_CNT,
+		   OVER_FLOW_CNT,
+		   LOCAL_OCC_CNT,
+		   STD_DAY,
+		   INSERT_DATE,
+		   MODIFY_DATE)
+		VALUES
+		  (#{city, jdbcType=VARCHAR},
+		   #{defCnt, jdbcType=NUMERIC},
+		   #{incDec, jdbcType=NUMERIC},
+		   #{deathCnt, jdbcType=NUMERIC},
+		   #{isolIngCnt, jdbcType=NUMERIC},
+		   #{isolClearCnt, jdbcType=NUMERIC},
+		   #{overFlowCnt, jdbcType=NUMERIC},
+		   #{localOccCnt, jdbcType=NUMERIC},
+		   #{stdDay, jdbcType=VARCHAR},
+		   SYSDATE,
+		   SYSDATE)
+	</insert>
+	
+	<select id="selectCorona" resultType="HashMap">
+		SELECT A.CITY,
+		       A.DEF_CNT,
+		       A.INC_DEC,
+		       A.DEATH_CNT,
+		       A.ISOL_ING_CNT,
+		       A.ISOL_CLEAR_CNT,
+		       A.OVER_FLOW_CNT,
+		       A.LOCAL_OCC_CNT,
+		       A.STD_DAY
+		  FROM TCORONA A
+		 WHERE A.INSERT_DATE = (SELECT MAX(B.INSERT_DATE) FROM TCORONA B)
+	</select>
+	
 </mapper>

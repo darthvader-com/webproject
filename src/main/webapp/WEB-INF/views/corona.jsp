@@ -18,23 +18,26 @@
 			<h2>지역별 코로나 확진자</h2>
 		</div>
 		<div class="d-flex justify-content-center">
-			<p>${year}년 ${month}월 ${date}일</p>
+			<!--<p>${year}년 ${month}월 ${date}일</p>-->
+			<p>기준일시 ${list[0].STD_DAY}</p>
 		</div>
 		<table class="table table-striped">
 			<tr>
 				<th>지역</th>
 				<th>신규확진자</th>
 				<th>누적확진자</th>
-				<th>완치자</th>
-				<th>사망자</th>
+				<th>격리중</th>
+				<th>격리해제</th>
+				<th>총사망자</th>
 			</tr>
 			<c:forEach var="item" items="${list}">
 				<tr>
-					<td>${item.city}</td>
-					<td>${item.incDec}</td>
-					<td>${item.defCnt}</td>
-					<td>${item.isolClearCnt}</td>
-					<td>${item.deathCnt}</td>
+					<td>${item.CITY}</td>
+					<td>${item.INC_DEC}</td>
+					<td>${item.DEF_CNT}</td>
+					<td>${item.ISOL_ING_CNT}</td>
+					<td>${item.ISOL_CLEAR_CNT}</td>
+					<td>${item.DEATH_CNT}</td>
 				</tr>
 			</c:forEach>
 		</table>
