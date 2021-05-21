@@ -29,8 +29,9 @@
 	<!-- aop-context.xml 추가 -->
 	<beans:import resource="./aop-context.xml" />
 
-	<!-- Mybatis - spring 스케쥴러  -->
-	<task:annotation-driven />
-
+	<!--spring batch 스케쥴러  -->
+	<context:component-scan base-package="com.web.scheduler"/>
+	<task:scheduler id="jobScheduler" pool-size="10"/>
+	<task:annotation-driven scheduler="jobScheduler"/>
 
 </beans:beans>
