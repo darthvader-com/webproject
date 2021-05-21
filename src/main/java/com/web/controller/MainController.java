@@ -20,6 +20,6 @@ public interface MainController {
 
 	String enchant(HttpServletRequest request, HashMap<String, String> hMap);
 
-	String getjson(HttpServletRequest request);
+	String corona(HttpServletRequest request);
 
 }

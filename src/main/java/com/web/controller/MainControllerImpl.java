@@ -5,7 +5,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -148,20 +150,19 @@ public class MainControllerImpl implements MainController {
 	// 테스트용
 	@SuppressWarnings("unchecked")
 	@Override
-	@RequestMapping(value = "/getjson.do", method = RequestMethod.GET)
-	public String getjson(HttpServletRequest request) {
+	@RequestMapping(value = "/corona.do", method = RequestMethod.GET)
+	public String corona(HttpServletRequest request) {
 
 		final String SERVICE_KEY = "q%2FFm6LYch%2F0g182SfkDmDHy403n2UcokdweYJvJ1NIbyAK23zccxMDUin4AbuZT0yKWpYfh%2F135f4DMl4HB5wA%3D%3D";
 		final String CORONA_URL = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson?";
 		BufferedReader br = null;
 		ArrayList<HashMap<String, Object>> list = null;
 
-		
-		String startDate = "20210519";
-		String endDate = "20210519";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String dateStr = sdf.format(new Date());
 
 		try {
-			URL url = new URL(CORONA_URL + "serviceKey=" + SERVICE_KEY + "&pageNo=1&numOfRows=19&startCreateDt=" + startDate + "&endCreateDt=" + endDate);
+			URL url = new URL(CORONA_URL + "serviceKey=" + SERVICE_KEY + "&pageNo=1&numOfRows=19&startCreateDt=" + dateStr + "&endCreateDt=" + dateStr);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			int responseCode = conn.getResponseCode();
 
@@ -193,8 +194,7 @@ public class MainControllerImpl implements MainController {
 				list = new ArrayList<HashMap<String, Object>>();
 				HashMap<String, Object> resultMap = null;
 				
-				System.out.println("확진자수");
-				for(int i = 0; i < itemList.size(); i++) {
+				for(int i = itemList.size() - 1; i >= 0; i--) {
 					resultMap = new HashMap<String, Object>();
 					resultMap.put("city", itemList.get(i).get("gubun"));
 					resultMap.put("incDec", itemList.get(i).get("incDec"));
@@ -228,12 +228,15 @@ public class MainControllerImpl implements MainController {
 			}
 
 			request.setAttribute("list", list);
+			request.setAttribute("year", dateStr.substring(0 ,4));
+			request.setAttribute("month", dateStr.substring(4, 6));
+			request.setAttribute("date", dateStr.substring(6, 8));
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
 
-		return "getjson";
+		return "corona";
 	}
 
 }
