@@ -108,7 +108,8 @@
 		       A.LOCAL_OCC_CNT,
 		       A.STD_DAY
 		  FROM TCORONA A
-		 WHERE A.INSERT_DATE = (SELECT MAX(B.INSERT_DATE) FROM TCORONA B)
+		 WHERE TRUNC(A.INSERT_DATE) = (SELECT TRUNC(MAX(B.INSERT_DATE)) 
+		 				                 FROM TCORONA B)
 	</select>
 	
 </mapper>
