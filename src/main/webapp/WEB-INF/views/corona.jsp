@@ -9,6 +9,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <title>코로나 API</title>
 
 </head>
@@ -18,7 +19,6 @@
 			<h2>지역별 코로나 확진자</h2>
 		</div>
 		<div class="d-flex justify-content-center">
-			<!--<p>${year}년 ${month}월 ${date}일</p>-->
 			<p>기준일시 ${list[0].STD_DAY}</p>
 		</div>
 		<table class="table table-striped">
@@ -41,6 +41,9 @@
 				</tr>
 			</c:forEach>
 		</table>
+		<div align="center">
+			<div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+		</div>
 		<div class="d-flex justify-content-center" style="margin-top: 20px; margin-bottom: 30px;">
 			<button type="button" class="btn btn-secondary" onclick="back();">뒤로가기</button>
 		</div>
@@ -51,6 +54,29 @@
 	function back() {
 		window.history.back();
 	}
+	
+	<!-- CHART -->
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      var data = google.visualization.arrayToDataTable([
+        ['corona', 'per day'],
+		<c:forEach var="item" items="${list}" begin="1">
+        	['${item.CITY}', ${item.INC_DEC}],
+		</c:forEach>
+      ]);
+
+      var options = {
+        title: '코로나현황 (총 ${list[0].INC_DEC}명)',
+        is3D: true,
+      };
+
+      var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+      chart.draw(data, options);
+    }
+	
 </script>
 
 </html>
