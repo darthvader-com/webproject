@@ -15,8 +15,22 @@
 			<h2>지역별 코로나 확진자</h2>
 		</div>
 		<div class="d-flex justify-content-center">
-			<p>기준일시 ${list[0].STD_DAY}&nbsp;<button type="button" class="btn btn-outline-danger btn-sm" onclick="re();">새로고침</button></p>
+			<p>
+				기준일시 ${list[0].STD_DAY}&nbsp;
+				<button type="button" class="btn btn-outline-danger btn-sm" onclick="re();">새로고침</button>
+			</p>
 		</div>
+
+		<div class="row" style="margin-bottom: 20px;">
+			<div class="col-xs-6" style="margin-right: 10px; margin-top: 5px; margin-left: 27px;">재난문자 조회 (※번호입력예시: 106882)</div>
+			<div class="col-xs-2">
+				<div class="form-inline">
+					<input type="number" class="form-control" id="no" name="no" aria-describedby="no" maxlength="6" style="width: 140px; margin-right: 8px;">
+					<button type="button" class="btn btn-primary" onclick="coronadata();">조회</button>
+				</div>
+			</div>
+		</div>
+
 		<table class="table table-striped">
 			<tr>
 				<th>지역</th>
@@ -53,6 +67,11 @@
 
 	function re() {
 		window.location.href = "/coronaupdate.do";
+	}
+
+	function coronadata() {
+		var data = $('#no').val();
+		window.location.href = "/coronadata.do?value=" + data;
 	}
 
 	<!-- CHART -->
