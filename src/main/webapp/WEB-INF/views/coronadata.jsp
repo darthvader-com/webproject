@@ -22,13 +22,13 @@
 			<button type="button" class="btn btn-secondary" onclick="back();">뒤로가기</button>
 		</div>
 	</div>
+	<jsp:include page="/resources/common/footer.jsp"></jsp:include>
 </body>
 
 <script type="text/javascript">
 	function back() {
 		window.history.back();
 	}
-
 </script>
 
 </html>

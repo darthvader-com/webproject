@@ -34,7 +34,7 @@
 			<button type="button" class="btn btn-secondary" onclick="back();">뒤로가기</button>
 		</div>
 	</div>
-	<hr>
+	<jsp:include page="/resources/common/footer.jsp"></jsp:include>
 </body>
 
 <script type="text/javascript">
@@ -52,7 +52,7 @@
 				itemKey : itemKey
 			},
 			success : function(data) {
-				if(data == "success"){
+				if (data == "success") {
 					alert('강화성공');
 					window.location.reload();
 				} else {

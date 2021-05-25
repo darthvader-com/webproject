@@ -45,8 +45,8 @@
 				</div>
 			</c:when>
 		</c:choose>
-
 	</div>
+	<jsp:include page="/resources/common/footer.jsp"></jsp:include>
 </body>
 <script type="text/javascript">
 	function signup() {

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<jsp:include page="/resources/common/header.jsp"></jsp:include>
+<jsp:include page="/resources/common/headernores.jsp"></jsp:include>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <title>코로나 API</title>
 
@@ -15,22 +15,34 @@
 			<h2>지역별 코로나 확진자</h2>
 		</div>
 		<div class="d-flex justify-content-center">
+			<div class="form-inline">
+				<div style="margin-bottom: 4px;">
+					재난문자 조회
+					<!--(※번호입력예시: 106882)-->
+				</div>
+				<input type="number" class="form-control" id="no" name="no" aria-describedby="no" maxlength="6"
+					style="width: 140px; margin-right: 8px; margin-left: 8px;">
+				<button type="button" class="btn btn-primary" onclick="coronadata();">조회</button>
+			</div>
+		</div>
+		<hr>
+		<div class="d-flex justify-content-center">
 			<p>
 				기준일시 ${list[0].STD_DAY}&nbsp;
 				<button type="button" class="btn btn-outline-danger btn-sm" onclick="re();">새로고침</button>
 			</p>
 		</div>
-
-		<div class="row" style="margin-bottom: 20px;">
-			<div class="col-xs-6" style="margin-right: 10px; margin-top: 5px; margin-left: 27px;">재난문자 조회 (※번호입력예시: 106882)</div>
-			<div class="col-xs-2">
-				<div class="form-inline">
-					<input type="number" class="form-control" id="no" name="no" aria-describedby="no" maxlength="6" style="width: 140px; margin-right: 8px;">
-					<button type="button" class="btn btn-primary" onclick="coronadata();">조회</button>
+		<div class="row" style="margin-bottom: 20px; margin-left: 30px;">
+			<div class="col-xs-10">
+				<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
+					aria-controls="collapseExample">그래프보기</button>
+				<div class="collapse" id="collapseExample">
+					<div class="card card-body">
+						<div id="piechart_3d"></div>
+					</div>
 				</div>
 			</div>
 		</div>
-
 		<table class="table table-sm">
 			<tr>
 				<th>지역</th>
@@ -51,13 +63,13 @@
 				</tr>
 			</c:forEach>
 		</table>
-		<div align="center">
-			<div id="piechart_3d" style="width: 900px; height: 500px;"></div>
-		</div>
-		<div class="d-flex justify-content-center" style="margin-top: 20px; margin-bottom: 30px;">
-			<button type="button" class="btn btn-secondary" onclick="back();">뒤로가기</button>
+		<div class="row" style="margin-bottom: 100px;">
+			<div class="col text-center">
+				<button type="button" class="btn btn-secondary" onclick="back();">뒤로가기</button>
+			</div>
 		</div>
 	</div>
+	<jsp:include page="/resources/common/footer.jsp"></jsp:include>
 </body>
 
 <script type="text/javascript">
@@ -90,12 +102,21 @@
       var options = {
         title: '코로나현황 (총 ${list[0].INC_DEC}명)',
         is3D: true,
+        height: '600',
+        width: '600',
+        pieSliceText: 'none',
       };
 
       var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
       chart.draw(data, options);
     }
-
 </script>
+
+<style>
+.container {
+	width: 1200px;
+	max-width: none !important;
+}
+</style>
 
 </html>

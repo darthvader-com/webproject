@@ -8,11 +8,10 @@
 <title>index</title>
 </head>
 <body>
-
 	<div class="container" style="padding-top: 50px;">
 
 	</div>
-
+	<jsp:include page="/resources/common/footer.jsp"></jsp:include>
 </body>
 
 <script type="text/javascript">
