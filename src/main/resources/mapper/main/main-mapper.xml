@@ -110,7 +110,7 @@
 		       A.LOCAL_OCC_CNT,
 		       A.STD_DAY
 		  FROM TCORONA A
-         WHERE TO_CHAR(A.INSERT_DATE, 'yyyymmddhh24mi') = (SELECT TO_CHAR(MAX(B.INSERT_DATE - 1/24/60), 'yyyymmddhh24mi') FROM TCORONA B)
+         WHERE TO_CHAR(A.INSERT_DATE, 'yyyymmddhh24mi') >= (SELECT TO_CHAR(MAX(B.INSERT_DATE - 1/24/60), 'yyyymmddhh24mi') FROM TCORONA B)
 	</select>
 
 </mapper>
