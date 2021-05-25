@@ -19,24 +19,26 @@
 	    WHERE USER_ID = #{userId, jdbcType=VARCHAR}
 	      AND USER_PWD = #{userPwd, jdbcType=VARCHAR}
 	</select>
-	
+
 	<insert id="saveSignupgo" parameterType="tuser">
 		INSERT INTO TUSER  /* saveSignupgo as MainController */
-		  (USER_ID,
-		   USER_PWD, 
+		  (USER_NO,
+		   USER_ID,
+		   USER_PWD,
 		   USER_NAME,
 		   EMAIL,
 		   INSERT_DATE,
 		   MODIFY_DATE)
 		VALUES
-		  (#{userId, jdbcType=VARCHAR},
+		  (RPAD(TO_CHAR(SYSDATE, 'yyyyMMdd'), 12, '0') || SEQ_USER_NO.NEXTVAL,
+		   #{userId, jdbcType=VARCHAR},
 		   #{userPwd, jdbcType=VARCHAR},
 		   #{userName, jdbcType=VARCHAR},
 		   #{email, jdbcType=VARCHAR},
 		   SYSDATE,
 		   SYSDATE)
 	</insert>
-	
+
 	<select id="selectInventory" parameterType="String" resultType="HashMap">
 		SELECT /* selectInventory as MainController */
 		       A.USER_NO,
@@ -59,17 +61,17 @@
 		   AND B.DELETE_YN = '0'
 		   AND A.USER_NO = #{userNo, jdbcType=VARCHAR}
 	</select>
-	
-	
+
+
 	<update id="updateEnchant" parameterType="HashMap">
-		UPDATE /* updateEnchant as MainController */ 
+		UPDATE /* updateEnchant as MainController */
 		       TINVENTORY A
-		   SET A.ITEM_LEVEL = A.ITEM_LEVEL + 1 
+		   SET A.ITEM_LEVEL = A.ITEM_LEVEL + 1
 		 WHERE A.USER_NO = #{userNo, jdbcType=VARCHAR}
 		   AND A.ITEM_KEY = #{itemKey, jdbcType=VARCHAR}
 	</update>
-	
-	
+
+
 	<insert id="insertCorona" parameterType="HashMap">
 		INSERT INTO TCORONA /* insertCorona as MainController */
 		  (CITY,
@@ -96,7 +98,7 @@
 		   SYSDATE,
 		   SYSDATE)
 	</insert>
-	
+
 	<select id="selectCorona" resultType="HashMap">
 		SELECT A.CITY,
 		       A.DEF_CNT,
@@ -108,8 +110,8 @@
 		       A.LOCAL_OCC_CNT,
 		       A.STD_DAY
 		  FROM TCORONA A
-		 WHERE TRUNC(A.INSERT_DATE) = (SELECT TRUNC(MAX(B.INSERT_DATE)) 
+		 WHERE TRUNC(A.INSERT_DATE) = (SELECT TRUNC(MAX(B.INSERT_DATE))
 		 				                 FROM TCORONA B)
 	</select>
-	
+
 </mapper>

@@ -3,36 +3,36 @@ package com.web.dao;
 import java.util.HashMap;
 import java.util.List;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.web.common.AbstractDAO;
 import com.web.model.Tuser;
 
 @Repository("mainDAO")
-public class MainDAO {
+public class MainDAO extends AbstractDAO {
 
-	public List<?> selectLogin(SqlSessionTemplate session, Tuser user) {
-		return session.selectList("main.selectList", user);
+	public List<?> selectLogin(Tuser user) {
+		return selectList("main.selectList", user);
 	}
 
-	public int saveSignupgo(SqlSessionTemplate session, Tuser tuser) {
-		return session.insert("main.saveSignupgo", tuser);
+	public int saveSignupgo(Tuser tuser) {
+		return insert("main.saveSignupgo", tuser);
 	}
 
-	public List<?> selectInventory(SqlSessionTemplate session, String userNo) {
-		return session.selectList("main.selectInventory", userNo);
+	public List<?> selectInventory(String userNo) {
+		return selectList("main.selectInventory", userNo);
 	}
 
-	public int updateEnchant(SqlSessionTemplate session, HashMap<String, String> hMap) {
-		return session.update("main.updateEnchant", hMap);
+	public int updateEnchant(HashMap<String, String> hMap) {
+		return update("main.updateEnchant", hMap);
 	}
 
-	public int insertCorona(SqlSessionTemplate session, HashMap<String, Object> hMap) {
-		return session.insert("main.insertCorona", hMap);
+	public int insertCorona(HashMap<String, Object> hMap) {
+		return insert("main.insertCorona", hMap);
 	}
 
-	public List<?> selectCorona(SqlSessionTemplate session) {
-		return session.selectList("main.selectCorona", null);
+	public List<?> selectCorona() {
+		return selectList("main.selectCorona", null);
 	}
 
 }
