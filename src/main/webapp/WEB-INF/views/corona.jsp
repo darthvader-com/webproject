@@ -31,7 +31,7 @@
 			</div>
 		</div>
 
-		<table class="table table-striped">
+		<table class="table table-sm">
 			<tr>
 				<th>지역</th>
 				<th>신규확진자</th>
