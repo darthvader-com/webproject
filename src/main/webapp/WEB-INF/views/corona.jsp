@@ -15,7 +15,7 @@
 			<h2>지역별 코로나 확진자</h2>
 		</div>
 		<div class="d-flex justify-content-center">
-			<p>기준일시 ${list[0].STD_DAY}</p>
+			<p>기준일시 ${list[0].STD_DAY}&nbsp;<button type="button" class="btn btn-outline-danger btn-sm" onclick="re();">새로고침</button></p>
 		</div>
 		<table class="table table-striped">
 			<tr>
@@ -49,6 +49,10 @@
 <script type="text/javascript">
 	function back() {
 		window.history.back();
+	}
+
+	function re() {
+		window.location.href = "/coronaupdate.do";
 	}
 
 	<!-- CHART -->

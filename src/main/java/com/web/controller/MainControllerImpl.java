@@ -149,7 +149,6 @@ public class MainControllerImpl implements MainController {
 		return resultRtn;
 	}
 
-	// 테스트용
 	@Override
 	@RequestMapping(value = "/corona.do", method = RequestMethod.GET)
 	public String corona(HttpServletRequest request) {
@@ -167,11 +166,12 @@ public class MainControllerImpl implements MainController {
 		return "corona";
 	}
 
-	@SuppressWarnings("all")
 	@Override
-	@RequestMapping(value = "/coronatest.do", method = RequestMethod.GET)
-	public void insertCoronaBatch() {
+	@SuppressWarnings("all")
+	@RequestMapping(value = "/coronaupdate.do", method = RequestMethod.GET)
+	public String insertCoronaBatch() {
 
+		String rtn = "";
 		final String SERVICE_KEY = "q%2FFm6LYch%2F0g182SfkDmDHy403n2UcokdweYJvJ1NIbyAK23zccxMDUin4AbuZT0yKWpYfh%2F135f4DMl4HB5wA%3D%3D";
 		final String CORONA_URL = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson?";
 		BufferedReader br = null;
@@ -226,9 +226,10 @@ public class MainControllerImpl implements MainController {
 					int executeRtn = mainService.insertCorona(resultMap);
 
 					if (executeRtn < 1) {
-						new Exception("CORONA INSERT ERROR");
+//						new Exception("CORONA INSERT ERROR");
+						rtn = "error";
 					} else {
-						System.out.println("CORONA INSERT SUCCESS");
+						rtn = "successdata";
 					}
 				}
 			}
@@ -236,6 +237,8 @@ public class MainControllerImpl implements MainController {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+
+		return rtn;
 
 	}
 

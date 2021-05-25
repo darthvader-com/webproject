@@ -5,13 +5,13 @@
 <head>
 <meta charset="utf-8">
 <jsp:include page="/resources/common/header.jsp"></jsp:include>
-<title>코로나 데이터</title>
+<title>코로나 재난문자 데이터</title>
 
 </head>
 <body>
 	<div class="container" style="margin-top: 50px;">
 		<div class="d-flex justify-content-center">
-			<h2>코로나 데이터</h2>
+			<h2>코로나 재난문자 데이터</h2>
 		</div>
 		<hr>
 		발송시간 : ${list[0].time}
