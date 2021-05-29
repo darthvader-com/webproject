@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.web.common.Mail;
 import com.web.common.SHA256;
 import com.web.model.Tuser;
 import com.web.service.MainService;
@@ -61,6 +62,8 @@ public class MainControllerImpl implements MainController {
 			} else {
 				return "loginfail";
 			}
+
+			//Mail.mailSend("", "테스트발송", "테스트내용");
 
 		} catch (NoSuchAlgorithmException e) {
 			System.err.println(e.getMessage());
@@ -302,6 +305,24 @@ public class MainControllerImpl implements MainController {
 		}
 		return "coronadata";
 
+	}
+
+	// 모바일 페이지
+	@Override
+	@RequestMapping(value = "/mindex.do", method = RequestMethod.GET)
+	public String mindex(HttpServletRequest request) {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String dateStr = sdf.format(new Date());
+
+		List<?> list = mainService.selectCorona();
+
+		request.setAttribute("list", list);
+		request.setAttribute("year", dateStr.substring(0, 4));
+		request.setAttribute("month", dateStr.substring(4, 6));
+		request.setAttribute("date", dateStr.substring(6, 8));
+
+		return "mindex";
 	}
 
 }

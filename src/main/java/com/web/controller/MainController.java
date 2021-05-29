@@ -26,4 +26,6 @@ public interface MainController {
 
 	String coronaData(HttpServletRequest request, String value);
 
+	String mindex(HttpServletRequest request);
+
 }

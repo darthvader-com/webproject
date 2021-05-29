@@ -13,6 +13,7 @@
 			<h1>로그인</h1>
 		</div>
 		<button type="button" class="btn btn-primary" onclick="corona();" style="margin-bottom: 15px;">코로나 API</button>
+		<button type="button" class="btn btn-primary" onclick="mobile();" style="margin-bottom: 15px;">모바일 페이지</button>
 		<c:choose>
 			<c:when test="${sessionScope.user == null }">
 				<form action="/login.do" method="POST">
@@ -59,6 +60,10 @@
 
 	function corona() {
 		window.location.href = "/corona.do"
+	}
+
+	function mobile() {
+		window.location.href = "/mindex.do"
 	}
 </script>
 </html>
