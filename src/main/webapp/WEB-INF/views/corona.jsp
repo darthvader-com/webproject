@@ -5,6 +5,7 @@
 <head>
 <meta charset="utf-8">
 <jsp:include page="/resources/common/headernores.jsp"></jsp:include>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <title>코로나 API</title>
 
