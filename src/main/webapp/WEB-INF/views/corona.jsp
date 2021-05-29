@@ -18,8 +18,7 @@
 		<div class="d-flex justify-content-center">
 			<div class="form-inline">
 				<div style="margin-bottom: 4px;">
-					재난문자 조회
-					<!--(※번호입력예시: 106882)-->
+					재난문자 조회 ex)106882
 				</div>
 				<input type="number" class="form-control" id="no" name="no" aria-describedby="no" maxlength="6"
 					style="width: 140px; margin-right: 8px; margin-left: 8px;">

@@ -15,7 +15,7 @@
    		    </div>
 			<div class="center">표</div>
 		    <div class="right">
-    			<ons-toolbar-button onclick="redoClick();"><ons-icon icon="fa-redo"></ons-icon></ons-toolbar-button>
+    			<ons-toolbar-button onclick="msignup();"><ons-icon icon="fa-sign-in-alt"></ons-icon></ons-toolbar-button>
    		    </div>
 		</ons-toolbar>
 		<ons-tabbar swipeable position="auto">
@@ -27,7 +27,7 @@
 	<template id="tab1.html">
 		<ons-page id="Tab1">
 			<p style="text-align: center;">
-				<div style="text-align: center; margin-bottom: 10px;">기준일시 ${list[0].STD_DAY}</div>
+				<div style="text-align: center; margin-bottom: 10px;">기준일시 ${list[0].STD_DAY}&nbsp;<ons-toolbar-button onclick="redoClick();"><ons-icon icon="fa-redo"></ons-icon></ons-toolbar-button></div>
 				<table class="table table-sm">
 					<tr>
 						<th>지역</th>
@@ -55,7 +55,7 @@
 	<template id="tab2.html">
 		<ons-page id="Tab2">
 			<p style="text-align: center;">
-			 	<div style="text-align: center; margin-bottom: 10px;">기준일시 ${list[0].STD_DAY}</div>
+			 	<div style="text-align: center; margin-bottom: 10px;">기준일시 ${list[0].STD_DAY}&nbsp;<ons-toolbar-button onclick="redoClick();"><ons-icon icon="fa-redo"></ons-icon></ons-toolbar-button></div>
 				<table class="charts-css show-data-on-hover bar show-labels show-data-axes" style="height: 100%; width: 95%; margin-left: 0px;">
 					<c:forEach var="item" items="${list}" begin="1">
 						<tr>

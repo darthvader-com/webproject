@@ -8,7 +8,8 @@ import javax.servlet.http.HttpSession;
 
 public interface MainController {
 
-	String login(HttpSession session, HttpServletRequest request, HttpServletResponse response, HashMap<String, String> hMap);
+	String login(HttpSession session, HttpServletRequest request, HttpServletResponse response,
+			HashMap<String, String> hMap);
 
 	String logout(HttpServletRequest request, HttpServletResponse response);
 
@@ -27,5 +28,7 @@ public interface MainController {
 	String coronaData(HttpServletRequest request, String value);
 
 	String mindex(HttpServletRequest request);
+
+	String pindex(HttpServletRequest request);
 
 }

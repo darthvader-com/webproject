@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.web.common.Mail;
 import com.web.common.SHA256;
 import com.web.model.Tuser;
 import com.web.service.MainService;
@@ -43,6 +42,42 @@ public class MainControllerImpl implements MainController {
 
 	@Resource(name = "mainService")
 	private MainService mainService;
+
+	// PC 페이지로 이동
+	@Override
+	@RequestMapping(value = "pindex.do", method = RequestMethod.GET)
+	public String pindex(HttpServletRequest request) {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String dateStr = sdf.format(new Date());
+
+		List<?> list = mainService.selectCorona();
+
+		request.setAttribute("list", list);
+		request.setAttribute("year", dateStr.substring(0, 4));
+		request.setAttribute("month", dateStr.substring(4, 6));
+		request.setAttribute("date", dateStr.substring(6, 8));
+
+		return "corona";
+	}
+
+	// 모바일 페이지로 이동
+	@Override
+	@RequestMapping(value = "mindex.do", method = RequestMethod.GET)
+	public String mindex(HttpServletRequest request) {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String dateStr = sdf.format(new Date());
+
+		List<?> list = mainService.selectCorona();
+
+		request.setAttribute("list", list);
+		request.setAttribute("year", dateStr.substring(0, 4));
+		request.setAttribute("month", dateStr.substring(4, 6));
+		request.setAttribute("date", dateStr.substring(6, 8));
+
+		return "mindex";
+	}
 
 	// 로그인 세션 생성
 	@Override
@@ -63,12 +98,12 @@ public class MainControllerImpl implements MainController {
 				return "loginfail";
 			}
 
-			//Mail.mailSend("", "테스트발송", "테스트내용");
+			// Mail.mailSend("", "테스트발송", "테스트내용");
 
 		} catch (NoSuchAlgorithmException e) {
 			System.err.println(e.getMessage());
 		}
-		return "redirect:/";
+		return "pindex";
 	}
 
 	// 로그아웃 세션 파기
@@ -82,7 +117,7 @@ public class MainControllerImpl implements MainController {
 			session.invalidate();
 		}
 
-		return "redirect:/";
+		return "pindex";
 	}
 
 	// 회원가입 페이지 이동
@@ -305,24 +340,6 @@ public class MainControllerImpl implements MainController {
 		}
 		return "coronadata";
 
-	}
-
-	// 모바일 페이지
-	@Override
-	@RequestMapping(value = "/mindex.do", method = RequestMethod.GET)
-	public String mindex(HttpServletRequest request) {
-
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		String dateStr = sdf.format(new Date());
-
-		List<?> list = mainService.selectCorona();
-
-		request.setAttribute("list", list);
-		request.setAttribute("year", dateStr.substring(0, 4));
-		request.setAttribute("month", dateStr.substring(4, 6));
-		request.setAttribute("date", dateStr.substring(6, 8));
-
-		return "mindex";
 	}
 
 }
