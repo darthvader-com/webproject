@@ -13,22 +13,10 @@ public interface MainController {
 
 	String logout(HttpServletRequest request, HttpServletResponse response);
 
-	String signup();
-
 	String signupgo(HashMap<String, String> hMap);
 
 	String inventory(HttpServletRequest request, HashMap<String, String> hMap);
 
 	String enchant(HttpServletRequest request, HashMap<String, String> hMap);
-
-	String corona(HttpServletRequest request);
-
-	String insertCoronaBatch();
-
-	String coronaData(HttpServletRequest request, String value);
-
-	String mindex(HttpServletRequest request);
-
-	String pindex(HttpServletRequest request);
 
 }

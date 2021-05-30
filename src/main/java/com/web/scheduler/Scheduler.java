@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
-import com.web.controller.MainController;
+import com.web.controller.CoronaController;
 
 @Controller
 public class Scheduler {
-	
+
 	@Autowired
-	MainController m;
+	CoronaController c;
 
 	// 10초 */10 * * * * *
 	@Scheduled(cron = "*/10 * * * * *")
@@ -26,7 +26,7 @@ public class Scheduler {
 	// 매시간 정각 0 0 * * * *
 	@Scheduled(cron = "0 0 * * * *")
 	public void coronaBatch() {
-		m.insertCoronaBatch();
+		c.insertCoronaBatch();
 	}
 
 }

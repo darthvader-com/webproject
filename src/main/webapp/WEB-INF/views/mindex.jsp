@@ -30,17 +30,17 @@
 				<div style="text-align: center; margin-bottom: 10px;">기준일시 ${list[0].STD_DAY}&nbsp;<ons-toolbar-button onclick="redoClick();"><ons-icon icon="fa-redo"></ons-icon></ons-toolbar-button></div>
 				<table class="table table-sm">
 					<tr>
-						<th>지역</th>
-						<th>신규</th>
-						<th>누적</th>
-						<th>격리</th>
-						<th>격리해제</th>
-						<th>총사망자</th>
+						<th>발생<br/>지역</th>
+						<th>신규<br/>확진자</th>
+						<th>누적<br/>확진자</th>
+						<th>격리<br/>중</th>
+						<th>격리<br/>해제</th>
+						<th>총<br/>사망자</th>
 					</tr>
 					<c:forEach var="item" items="${list}" begin="1">
 						<tr>
 							<td>${item.CITY}</td>
-							<td>${item.INC_DEC}</td>
+							<td>${item.INF_CNT}</td>
 							<td>${item.DEF_CNT}</td>
 							<td>${item.ISOL_ING_CNT}</td>
 							<td>${item.ISOL_CLEAR_CNT}</td>
@@ -60,7 +60,7 @@
 					<c:forEach var="item" items="${list}" begin="1">
 						<tr>
 						 	<th scope="row">${item.CITY}</th>
-							<td style="--size: calc( ${item.INC_DEC} / ${list[1].INC_DEC})"><span class="data">${item.INC_DEC}</span></td>
+							<td style="--size: calc( ${item.INF_CNT} / ${list[1].INF_CNT} )"><span class="data">${item.INF_CNT}</span></td>
 						</tr>
 					</c:forEach>
 				</table>

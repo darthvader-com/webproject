@@ -27,12 +27,4 @@ public class MainDAO extends AbstractDAO {
 		return update("main.updateEnchant", hMap);
 	}
 
-	public int insertCorona(HashMap<String, Object> hMap) {
-		return insert("main.insertCorona", hMap);
-	}
-
-	public List<?> selectCorona() {
-		return selectList("main.selectCorona", null);
-	}
-
 }

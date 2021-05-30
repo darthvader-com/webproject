@@ -37,14 +37,4 @@ public class MainServiceImpl implements MainService {
 		return mainDAO.updateEnchant(hMap);
 	}
 
-	@Override
-	public int insertCorona(HashMap<String, Object> hMap) {
-		return mainDAO.insertCorona(hMap);
-	}
-
-	@Override
-	public List<?> selectCorona() {
-		return mainDAO.selectCorona();
-	}
-
 }

@@ -55,7 +55,7 @@
 			<c:forEach var="item" items="${list}">
 				<tr>
 					<td>${item.CITY}</td>
-					<td>${item.INC_DEC}</td>
+					<td>${item.INF_CNT}</td>
 					<td>${item.DEF_CNT}</td>
 					<td>${item.ISOL_ING_CNT}</td>
 					<td>${item.ISOL_CLEAR_CNT}</td>
@@ -95,12 +95,12 @@
       var data = google.visualization.arrayToDataTable([
         ['corona', 'per day'],
 		<c:forEach var="item" items="${list}" begin="1">
-        	['${item.CITY}', ${item.INC_DEC}],
+        	['${item.CITY}', ${item.INF_CNT}],
 		</c:forEach>
       ]);
 
       var options = {
-        title: '코로나현황 (총 ${list[0].INC_DEC}명)',
+        title: '코로나현황 (총 ${list[0].INF_CNT}명)',
         is3D: true,
         height: '600',
         width: '600',
