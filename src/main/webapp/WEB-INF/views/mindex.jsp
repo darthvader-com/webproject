@@ -7,6 +7,34 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
 </head>
 
+
+<style>
+.tooltip-m {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip-m .tooltiptext {
+  visibility: hidden;
+  width: 55px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  text-align: center;
+  border-radius: 20px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: 0%;
+  left: 0%;
+  margin-left: 0px;
+}
+
+.tooltip-m:hover .tooltiptext {
+  visibility: visible;
+}
+</style>
+
 <body>
 	<ons-page>
 		<ons-toolbar>
@@ -56,11 +84,11 @@
 		<ons-page id="Tab2">
 			<p style="text-align: center;">
 			 	<div style="text-align: center; margin-bottom: 10px;">기준일시 ${list[0].STD_DAY}&nbsp;<ons-toolbar-button onclick="redoClick();"><ons-icon icon="fa-redo"></ons-icon></ons-toolbar-button></div>
-				<table class="charts-css show-data-on-hover bar show-labels show-data-axes" style="height: 100%; width: 95%; margin-left: 0px;">
+				<table class="charts-css bar show-labels show-data-axes data-spacing-5 show-data-on-hover" style="height: 100%; width: 95%; margin-left: 0px;">
 					<c:forEach var="item" items="${list}" begin="1">
 						<tr>
 						 	<th scope="row">${item.CITY}</th>
-							<td style="--size: calc( ${item.INF_CNT} / ${list[1].INF_CNT} )"><span class="data">${item.INF_CNT}</span></td>
+							<td class="tooltip-m" style="--size: calc( ${item.INF_CNT} / ${list[1].INF_CNT} )"><!-- <span class="data">${item.INF_CNT} </span> --> <span class="tooltiptext" style="">${item.INF_CNT}명</span></td>
 						</tr>
 					</c:forEach>
 				</table>
