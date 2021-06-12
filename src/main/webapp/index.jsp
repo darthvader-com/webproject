@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
 <jsp:include page="/resources/common/header.jsp"></jsp:include>
-<title>index</title>
+<title>Superfantastic</title>
 </head>
 <body>
 	<div class="container">

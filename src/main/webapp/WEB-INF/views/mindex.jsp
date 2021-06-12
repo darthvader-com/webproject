@@ -5,6 +5,7 @@
 <head>
 <jsp:include page="/resources/common/mobileheader.jsp"></jsp:include>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
+<title>코로나현황</title>
 </head>
 
 
@@ -39,11 +40,11 @@
 	<ons-page>
 		<ons-toolbar>
 		    <div class="left">
-    			<ons-toolbar-button id="back">&lt;</ons-toolbar-button>
+    			<ons-toolbar-button onclick="back();">&lt;</ons-toolbar-button>
    		    </div>
 			<div class="center">표</div>
 		    <div class="right">
-    			<ons-toolbar-button onclick="msignup();"><ons-icon icon="fa-sign-in-alt"></ons-icon></ons-toolbar-button>
+    			<ons-toolbar-button onclick="notopenClick();"><ons-icon icon="fa-sign-in-alt"></ons-icon></ons-toolbar-button>
    		    </div>
 		</ons-toolbar>
 		<ons-tabbar swipeable position="auto">
@@ -96,6 +97,7 @@
 		</ons-page>
 	</template>
 
+	<%--
 	<template id="alert_redo.html">
 	  <ons-alert-dialog id="alert_redo" modifier="rowfooter">
 	    <div class="alert-dialog-title">안내</div>
@@ -108,6 +110,31 @@
 	    </div>
 	  </ons-alert-dialog>
 	</template>
+	 --%>
+	 <template id="alert_redo.html">
+	  <ons-alert-dialog id="alert_redo" modifier="rowfooter">
+	    <div class="alert-dialog-title">안내</div>
+	    <div class="alert-dialog-content">
+	      관리자만 이용가능합니다.
+	    </div>
+	    <div class="alert-dialog-footer">
+	      <ons-alert-dialog-button onclick="redoClose();">확인</ons-alert-dialog-button>
+	    </div>
+	  </ons-alert-dialog>
+	</template>
+
+	 <template id="alert_notopen.html">
+	  <ons-alert-dialog id="alert_notopen" modifier="rowfooter">
+	    <div class="alert-dialog-title">안내</div>
+	    <div class="alert-dialog-content">
+	      서비스 준비중입니다.
+	    </div>
+	    <div class="alert-dialog-footer">
+	      <ons-alert-dialog-button onclick="notopenClose();">확인</ons-alert-dialog-button>
+	    </div>
+	  </ons-alert-dialog>
+	</template>
+
 </body>
 
 <script type="text/javascript">
@@ -124,19 +151,33 @@
 		}
 	};
 
+	var notopenClick = function() {
+		var dialog = document.getElementById('alert_notopen');
+
+		if (dialog) {
+		  dialog.show();
+		} else {
+		  ons.createElement('alert_notopen.html', { append: true }).then(function(dialog) {
+		      dialog.show();
+		    });
+		}
+	};
+
 	var redoClose = function() {
  		document.getElementById('alert_redo').hide();
+	};
+
+	var notopenClose = function() {
+ 		document.getElementById('alert_notopen').hide();
 	};
 
 	var redoCorona = function() {
 		window.location.href = "/coronaupdate.do";
 	};
 
-	$(function() {
-		$('#back').on('click', function(e) {
-			window.history.back();
-		})
-	});
+	var back = function() {
+		window.location.href = "/";
+	}
 
 	document.addEventListener('prechange', function(event) {
 		document.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');

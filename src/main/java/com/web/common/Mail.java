@@ -10,7 +10,7 @@ import javax.mail.internet.MimeMessage;
 
 public class Mail {
 
-	private static final String SENDER = "";
+	private static final String SENDER = "superfantastic";
 	private static final String ID = "";
 	private static final String PWD = "";
 
