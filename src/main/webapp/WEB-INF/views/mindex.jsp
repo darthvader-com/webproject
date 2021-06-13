@@ -5,7 +5,7 @@
 <head>
 <jsp:include page="/resources/common/mobileheader.jsp"></jsp:include>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
-<title>코로나현황 Mobile</title>
+<title>코로나19현황 Mobile</title>
 </head>
 
 
@@ -42,14 +42,14 @@
 		    <div class="left">
     			<ons-toolbar-button onclick="back();">&lt;</ons-toolbar-button>
    		    </div>
-			<div class="center">표</div>
+			<div class="center">지역별 코로나19 현황(표)</div>
 		    <div class="right">
     			<ons-toolbar-button onclick="notopenClick();"><ons-icon icon="fa-sign-in-alt"></ons-icon></ons-toolbar-button>
    		    </div>
 		</ons-toolbar>
 		<ons-tabbar swipeable position="auto">
-			<ons-tab page="tab1.html" label="표" icon="fa-table" active></ons-tab>
-		    <ons-tab page="tab2.html" label="그래프" icon="fa-chart-bar"></ons-tab>
+			<ons-tab page="tab1.html" label="지역별 코로나19 현황(표)" icon="fa-table" active></ons-tab>
+		    <ons-tab page="tab2.html" label="지역별 코로나19 현황(그래프)" icon="fa-chart-bar"></ons-tab>
 		</ons-tabbar>
 	</ons-page>
 

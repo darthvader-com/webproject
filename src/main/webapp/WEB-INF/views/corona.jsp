@@ -7,7 +7,7 @@
 <jsp:include page="/resources/common/headernores.jsp"></jsp:include>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<title>코로나현황 PC</title>
+<title>코로나19현황 PC</title>
 
 </head>
 <body>

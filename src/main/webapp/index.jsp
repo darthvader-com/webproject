@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
 <jsp:include page="/resources/common/header.jsp"></jsp:include>
-<title>메인</title>
+<title>메인페이지</title>
 </head>
 <body>
 	<div class="container">
