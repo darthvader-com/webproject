@@ -5,7 +5,7 @@
 <head>
 <jsp:include page="/resources/common/mobileheader.jsp"></jsp:include>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
-<title>코로나현황</title>
+<title>코로나현황 Mobile</title>
 </head>
 
 
