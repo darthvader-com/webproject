@@ -29,7 +29,8 @@
 		<div class="d-flex justify-content-center">
 			<p>
 				기준일시 ${list[0].STD_DAY}&nbsp;
-				<button type="button" class="btn btn-outline-danger btn-sm" onclick="re();">새로고침</button>
+				<!-- <button type="button" class="btn btn-outline-danger btn-sm" onclick="re();">새로고침</button> -->
+				<button type="button" class="btn btn-outline-danger btn-sm" onclick="adminOnly();">새로고침</button>
 			</p>
 		</div>
 		<div class="row" style="margin-bottom: 20px; margin-left: 30px;">
@@ -110,6 +111,11 @@
       var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
       chart.draw(data, options);
     }
+
+    function adminOnly() {
+		alert('관리자만 이용가능합니다.');
+	}
+
 </script>
 
 <style>

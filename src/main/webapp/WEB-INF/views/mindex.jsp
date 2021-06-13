@@ -56,7 +56,12 @@
 	<template id="tab1.html">
 		<ons-page id="Tab1">
 			<p style="text-align: center;">
-				<div style="text-align: center; margin-bottom: 10px;">기준일시 ${list[0].STD_DAY}&nbsp;<ons-toolbar-button onclick="redoClick();"><ons-icon icon="fa-redo"></ons-icon></ons-toolbar-button></div>
+				<div style="text-align: center; margin-bottom: 10px;">기준일시 ${list[0].STD_DAY}&nbsp;
+				<b>(총 ${list[0].INF_CNT}명)</b>
+				<ons-toolbar-button onclick="redoClick();">
+					<ons-icon icon="fa-redo"></ons-icon>
+				</ons-toolbar-button>
+				</div>
 				<table class="table table-sm">
 					<tr>
 						<th>발생<br/>지역</th>
@@ -66,7 +71,7 @@
 						<th>격리<br/>해제</th>
 						<th>총<br/>사망자</th>
 					</tr>
-					<c:forEach var="item" items="${list}" begin="1">
+					<c:forEach var="item" items="${list}" begin="0">
 						<tr>
 							<td>${item.CITY}</td>
 							<td>${item.INF_CNT}</td>
@@ -86,10 +91,10 @@
 			<p style="text-align: center;">
 			 	<div style="text-align: center; margin-bottom: 10px;">기준일시 ${list[0].STD_DAY}&nbsp;<ons-toolbar-button onclick="redoClick();"><ons-icon icon="fa-redo"></ons-icon></ons-toolbar-button></div>
 				<table class="charts-css bar show-labels show-data-axes data-spacing-5 show-data-on-hover" style="height: 100%; width: 95%; margin-left: 0px;">
-					<c:forEach var="item" items="${list}" begin="1">
+					<c:forEach var="item" items="${list}" begin="0">
 						<tr>
 						 	<th scope="row">${item.CITY}</th>
-							<td class="tooltip-m" style="--size: calc( ${item.INF_CNT} / ${list[1].INF_CNT} )"><!-- <span class="data">${item.INF_CNT} </span> --> <span class="tooltiptext" style="">${item.INF_CNT}명</span></td>
+							<td class="tooltip-m" style="--size: calc( ${item.INF_CNT} / ${list[0].INF_CNT} )"><!-- <span class="data">${item.INF_CNT} </span> --> <span class="tooltiptext" style="">${item.INF_CNT}명</span></td>
 						</tr>
 					</c:forEach>
 				</table>
