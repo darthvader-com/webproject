@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.web.common.Mail;
 import com.web.service.CoronaService;
 
 @Controller
@@ -152,23 +153,38 @@ public class CoronaControllerImpl implements CoronaController {
 					int executeRtn = coronaService.insertCorona(resultMap);
 
 					if (executeRtn < 1) {
-//						new Exception("CORONA INSERT ERROR");
 						rtn = "error";
 					} else {
 						rtn = "successdata";
 					}
 				}
+
+			}
+
+			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String dateStr1 = sdf1.format(new Date());
+
+			if(rtn.equals("successdata")) {
+				try {
+					// 코로나 배치 성공 시 메일 발송
+					Mail.mailSend("savior0319@naver.com", "코로나 배치 성공", "[" + sdf1 + "]" + " 배치 정상완료");
+				} catch (Exception e) {
+					System.err.println(e.getMessage());
+				}
+			} else {
+				// 코로나 배치 실패 시 메일 발송
+				Mail.mailSend("savior0319@naver.com", "코로나 배치 성공", "[" + sdf1 + "]" + " 배치 실패");
 			}
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 		}
 
 		return rtn;
 
 	}
 
-	// 코로나 데이터
+	// 재난문자 데이터
 	@Override
 	@RequestMapping(value = "/coronadata.do", method = RequestMethod.GET, produces = "application/text; charset=utf8")
 	public String coronaData(HttpServletRequest request, @RequestParam String value) {
@@ -185,13 +201,10 @@ public class CoronaControllerImpl implements CoronaController {
 			conn.setRequestMethod("POST");
 			conn.setDoOutput(true);
 			conn.setRequestProperty("Content-Type", "application/json");
-			conn.setRequestProperty("Referer",
-					"https://www.safekorea.go.kr/idsiSFK/neo/sfk/cs/sfc/dis/disasterMsgView.jsp?menuSeq=679");
-			conn.setRequestProperty("User-Agent",
-					"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36");
+			conn.setRequestProperty("Referer", "https://www.safekorea.go.kr/idsiSFK/neo/sfk/cs/sfc/dis/disasterMsgView.jsp?menuSeq=679");
+			conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36");
 
-			String body = "{\"bbs_searchInfo\":{\"pageIndex\":\"1\",\"pageUnit\":\"10\",\"pageSize\":\"10\",\"firstIndex\":\"1\",\"lastIndex\":\"1\",\"recordCountPerPage\":\"10\",\"bbs_no\":\"63\",\"bbs_ordr\":\""
-					+ value + "\",\"opCode\":\"2\"}}";
+			String body = "{\"bbs_searchInfo\":{\"pageIndex\":\"1\",\"pageUnit\":\"10\",\"pageSize\":\"10\",\"firstIndex\":\"1\",\"lastIndex\":\"1\",\"recordCountPerPage\":\"10\",\"bbs_no\":\"63\",\"bbs_ordr\":\"" + value + "\",\"opCode\":\"2\"}}";
 
 			OutputStreamWriter os = new OutputStreamWriter(conn.getOutputStream());
 			os.write(body);
