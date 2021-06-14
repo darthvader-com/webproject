@@ -43,7 +43,7 @@
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 
-   <!--  <security-constraint>
+   <security-constraint>
         <web-resource-collection>
             <web-resource-name>HTTP</web-resource-name>
             <url-pattern>/*</url-pattern>
@@ -51,7 +51,7 @@
         <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
-    </security-constraint> -->
+    </security-constraint> 
 
 	<!--<error-page>
 		<error-code>400</error-code>
