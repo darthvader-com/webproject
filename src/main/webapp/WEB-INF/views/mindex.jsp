@@ -44,7 +44,7 @@
    		    </div>
 			<div class="center">지역별 코로나19 현황(표)</div>
 		    <div class="right">
-    			<ons-toolbar-button onclick="notopenClick();"><ons-icon icon="fa-sign-in-alt"></ons-icon></ons-toolbar-button>
+    			<ons-toolbar-button onclick="signup();"><ons-icon icon="fa-sign-in-alt"></ons-icon></ons-toolbar-button>
    		    </div>
 		</ons-toolbar>
 		<ons-tabbar swipeable position="auto">
@@ -128,7 +128,7 @@
 	  </ons-alert-dialog>
 	</template>
 
-	 <template id="alert_notopen.html">
+	<%-- <template id="alert_notopen.html">
 	  <ons-alert-dialog id="alert_notopen" modifier="rowfooter">
 	    <div class="alert-dialog-title">안내</div>
 	    <div class="alert-dialog-content">
@@ -138,7 +138,7 @@
 	      <ons-alert-dialog-button onclick="notopenClose();">확인</ons-alert-dialog-button>
 	    </div>
 	  </ons-alert-dialog>
-	</template>
+	</template>  --%>
 
 </body>
 
@@ -187,6 +187,10 @@
 	document.addEventListener('prechange', function(event) {
 		document.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');
 	});
+	
+	function signup(){
+		window.location.href = "/signup.do";
+	}
 
 </script>
 
