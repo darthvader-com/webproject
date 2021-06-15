@@ -37,13 +37,13 @@ public class Scheduler {
 	
 	// 매일 오전 10시 30분
 	@Scheduled(cron = "0 30 10 * * *")
-	public void coronaBatch1() {
+	public void coronaBatch2() {
 		c.insertCoronaBatch();
 	}
 
 	// 매일 오전 11시
 	@Scheduled(cron = "0 0 11 * * *")
-	public void coronaBatch2() {
+	public void coronaBatch3() {
 		c.insertCoronaBatch();
 	}
 
