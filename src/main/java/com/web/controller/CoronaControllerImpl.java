@@ -167,7 +167,7 @@ public class CoronaControllerImpl implements CoronaController {
 			if(rtn.equals("successdata")) {
 				try {
 					// 코로나 배치 성공 시 메일 발송
-					Mail.mailSend("savior0319@naver.com", "코로나 배치 성공", "[" + sdf1 + "]" + " 배치 정상완료");
+					Mail.mailSend("savior0319@naver.com", "코로나 배치 성공", "[" + dateStr1 + "]" + " 배치 정상완료");
 				} catch (Exception e) {
 					System.err.println(e.getMessage());
 				}
