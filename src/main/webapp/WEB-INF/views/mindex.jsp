@@ -61,8 +61,8 @@
 			<p style="text-align: center;">
 				<div style="text-align: center; margin-bottom: 10px;">
 				    <span class="input-group-text" style="margin-bottom: 10px;">
-				    	기준일시<input type="text" class="form-control" id="cal" value="${now}" style="margin-left: 22px; margin-right: 22px;"/>
-				    	<!-- <i class="fa fa-calendar" id="cal"></i> -->
+				    	기준일시<input type="text" class="form-control" value="${now}" style="margin-left: 20px; margin-right: 20px;" readonly="readonly"/>
+				    	<i class="fa fa-calendar" id="cal" style="margin-right: 8px;"></i>
 				    </span>
 					<b>[총 ${list[0].INF_CNT}명]</b>
 					<%--<ons-toolbar-button onclick="redoClick();"><ons-icon icon="fa-redo"></ons-icon></ons-toolbar-button>--%>
