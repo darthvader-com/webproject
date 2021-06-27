@@ -62,17 +62,21 @@ public class CoronaControllerImpl implements CoronaController {
 	public String mindex(HttpServletRequest request) {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy년 MM월 dd일");
 		String dateStr = sdf.format(new Date());
-		String dateStr1 = sdf1.format(new Date());
 
-		List<?> list = coronaService.selectCorona();
+		List<?> list = coronaService.selectCoronaDate(dateStr);
+
+		// 오늘날짜 데이터가 없을경우 어제 데이터
+		if(list.size() == 0) {
+			 dateStr = (String.valueOf( Integer.parseInt(dateStr) - 1));
+			 list = coronaService.selectCoronaDate(dateStr);
+		}
 
 		request.setAttribute("list", list);
 		request.setAttribute("year", dateStr.substring(0, 4));
 		request.setAttribute("month", dateStr.substring(4, 6));
 		request.setAttribute("date", dateStr.substring(6, 8));
-		request.setAttribute("now", dateStr1);
+		request.setAttribute("now", dateStr.substring(0, 4) + "년 " + dateStr.substring(4, 6) + "월 " + dateStr.substring(6, 8) + "일");
 
 		return "mindex";
 	}
@@ -268,8 +272,17 @@ public class CoronaControllerImpl implements CoronaController {
 			msg = "날짜를 확인하세요";
 			isFlag = false;
 		} else {
-			msg = "서비스 준비중입니다.";
-			isFlag = false;
+			List<?> list = coronaService.selectCoronaDate(date);
+
+			// 오늘날짜 데이터가 없을경우 어제 데이터
+			if(list.size() == 0) {
+				 date = String.valueOf( Integer.parseInt(date) - 1);
+				 list = coronaService.selectCoronaDate(date);
+			}
+
+			request.setAttribute("list", list);
+			request.setAttribute("now", date.substring(0, 4) + "년 " + date.substring(4, 6) + "월 " + date.substring(6, 8) + "일");
+			isFlag = true;
 		}
 
 		request.setAttribute("msg", msg);
@@ -278,8 +291,7 @@ public class CoronaControllerImpl implements CoronaController {
 		if(isFlag == false) {
 			return "alert";
 		} else {
-			return "alert";
-//			return "redirect:/mindex.do";
+			return "mindex";
 		}
 	}
 

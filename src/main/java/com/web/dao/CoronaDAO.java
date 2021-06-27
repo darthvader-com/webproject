@@ -18,4 +18,8 @@ public class CoronaDAO extends AbstractDAO {
 		return selectList("corona.selectCorona", null);
 	}
 
+	public List<?> selectCoronaDate(String date) {
+		return selectList("corona.selectCoronaDate", date);
+	}
+
 }

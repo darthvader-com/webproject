@@ -9,4 +9,6 @@ public interface CoronaService {
 
 	List<?> selectCorona();
 
+	List<?> selectCoronaDate(String date);
+
 }
