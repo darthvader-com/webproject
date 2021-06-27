@@ -62,7 +62,9 @@ public class CoronaControllerImpl implements CoronaController {
 	public String mindex(HttpServletRequest request) {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
 		String dateStr = sdf.format(new Date());
+		String dateStr1 = sdf1.format(new Date());
 
 		List<?> list = coronaService.selectCorona();
 
@@ -70,6 +72,7 @@ public class CoronaControllerImpl implements CoronaController {
 		request.setAttribute("year", dateStr.substring(0, 4));
 		request.setAttribute("month", dateStr.substring(4, 6));
 		request.setAttribute("date", dateStr.substring(6, 8));
+		request.setAttribute("now", dateStr1);
 
 		return "mindex";
 	}
