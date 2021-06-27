@@ -5,6 +5,9 @@
 <head>
 <jsp:include page="/resources/common/mobileheader.jsp"></jsp:include>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
 <title>코로나19현황 Mobile</title>
 </head>
 
@@ -56,11 +59,13 @@
 	<template id="tab1.html">
 		<ons-page id="Tab1">
 			<p style="text-align: center;">
-				<div style="text-align: center; margin-bottom: 10px;">기준일시 ${list[0].STD_DAY}&nbsp;
-				<b>(총 ${list[0].INF_CNT}명)</b>
-				<ons-toolbar-button onclick="redoClick();">
-					<ons-icon icon="fa-redo"></ons-icon>
-				</ons-toolbar-button>
+				<div style="text-align: center; margin-bottom: 10px;">
+				    <span class="input-group-text" style="margin-bottom: 10px;">
+				    	기준일시<input type="text" class="form-control" value="${list[0].STD_DAY}" style="margin-left: 15px; margin-right: 15px;" readonly="readonly"/>
+				    	<i class="fa fa-calendar" id="cal"></i>
+				    </span>
+					<b>[총 ${list[0].INF_CNT}명]</b>
+					<%--<ons-toolbar-button onclick="redoClick();"><ons-icon icon="fa-redo"></ons-icon></ons-toolbar-button>--%>
 				</div>
 				<table class="table table-sm">
 					<tr>
@@ -169,12 +174,13 @@
 	};
 
 	var redoClose = function() {
- 		document.getElementById('alert_redo').hide();
+			document.getElementById('alert_redo').hide();
 	};
 
 	var notopenClose = function() {
- 		document.getElementById('alert_notopen').hide();
+			document.getElementById('alert_notopen').hide();
 	};
+
 
 	var redoCorona = function() {
 		window.location.href = "/coronaupdate.do";
@@ -186,6 +192,14 @@
 
 	document.addEventListener('prechange', function(event) {
 		document.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');
+	});
+
+
+	$(function(){
+		flatpickr.localize(flatpickr.l10ns.ko);
+		$("#cal").flatpickr({
+		    local: 'ko'
+		});
 	});
 
 </script>
