@@ -62,7 +62,7 @@ public class CoronaControllerImpl implements CoronaController {
 	public String mindex(HttpServletRequest request) {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy년 MM월 dd일");
 		String dateStr = sdf.format(new Date());
 		String dateStr1 = sdf1.format(new Date());
 

@@ -60,9 +60,9 @@
 		<ons-page id="Tab1">
 			<p style="text-align: center;">
 				<div style="text-align: center; margin-bottom: 10px;">
-				    <span class="input-group-text" style="margin-bottom: 10px;">
-				    	기준일시<input type="text" class="form-control" value="${now}" style="margin-left: 20px; margin-right: 20px;" readonly="readonly"/>
-				    	<i class="fa fa-calendar" id="cal" style="margin-right: 8px;"></i>
+   				    <span class="input-group-text" id="caldiv" style="margin-bottom: 10px;">
+				    	기준일시<input type="text" class="form-control" value="${now}" style="margin-left: 22px; margin-right: 22px;" readonly="readonly" data-input/>
+				    	<a class="input-button"  title="toggle" data-toggle><i class="fa fa-calendar" id="cal"></i></a>
 				    </span>
 					<b>[총 ${list[0].INF_CNT}명]</b>
 					<%--<ons-toolbar-button onclick="redoClick();"><ons-icon icon="fa-redo"></ons-icon></ons-toolbar-button>--%>
@@ -194,12 +194,22 @@
 		document.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');
 	});
 
-
+	// 달력
 	$(function(){
 		flatpickr.localize(flatpickr.l10ns.ko);
-		$("#cal").flatpickr({
+
+		flatpickr($("#caldiv"), {
+			wrap: true,
 		    local: 'ko',
-		    disableMobile: "true"
+		    dateFormat: "Y년 m월 d일",
+		    disableMobile: "true",
+		    onChange: function(selectedDates, dateStr, instance) {
+		    	console.log(dateStr);
+		    },
+		    onOpen: [
+		        function(selectedDates, dateStr, instance){}
+		    ],
+		    onClose: function(selectedDates, dateStr, instance){}
 		});
 	});
 
