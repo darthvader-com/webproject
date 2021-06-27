@@ -204,7 +204,9 @@
 		    dateFormat: "Y년 m월 d일",
 		    disableMobile: "true",
 		    onChange: function(selectedDates, dateStr, instance) {
-		    	console.log(dateStr);
+		    	var date = dateStr.substr(0, 4) + dateStr.substr(5, 3) + dateStr.substr(9, 3);
+		    	date = date.replace(/ /g,"");
+		    	window.location.href = "/getcorona.do?date=" + date;
 		    },
 		    onOpen: [
 		        function(selectedDates, dateStr, instance){}

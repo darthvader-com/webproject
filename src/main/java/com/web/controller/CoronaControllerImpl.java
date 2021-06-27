@@ -111,8 +111,7 @@ public class CoronaControllerImpl implements CoronaController {
 		String dateStr = sdf.format(new Date());
 
 		try {
-			URL url = new URL(CORONA_URL + "serviceKey=" + SERVICE_KEY + "&pageNo=1&numOfRows=19&startCreateDt="
-					+ dateStr + "&endCreateDt=" + dateStr);
+			URL url = new URL(CORONA_URL + "serviceKey=" + SERVICE_KEY + "&pageNo=1&numOfRows=19&startCreateDt=" + dateStr + "&endCreateDt=" + dateStr);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			int responseCode = conn.getResponseCode();
 
@@ -245,6 +244,38 @@ public class CoronaControllerImpl implements CoronaController {
 		}
 		return "coronadata";
 
+	}
+
+	// 코로나 일자별 데이터 가져오기
+	@Override
+	@RequestMapping(value = "/getcorona.do", method = RequestMethod.GET)
+	public String getcorona(HttpServletRequest request, @RequestParam String date) {
+
+		boolean isFlag = true;
+		String msg = "";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+
+		// 일주일 전
+		int fromDate = Integer.parseInt(sdf.format(new Date())) - 7;
+
+		// 현재
+		int toDate = Integer.parseInt(sdf.format(new Date()));
+
+		if(fromDate > Integer.parseInt(date)) {
+			msg = "최대 조회기간은 7일입니다";
+			isFlag = false;
+		} else if (toDate < Integer.parseInt(date)) {
+			msg = "날짜를 확인하세요";
+			isFlag = false;
+		}
+
+		request.setAttribute("msg", msg);
+
+		if(isFlag == false) {
+			return "alert";
+		} else {
+			return "redirect:/mindex.do";
+		}
 	}
 
 }

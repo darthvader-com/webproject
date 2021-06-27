@@ -14,4 +14,6 @@ public interface CoronaController {
 
 	String mindex(HttpServletRequest request);
 
+	String getcorona(HttpServletRequest request, String value);
+
 }
