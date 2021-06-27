@@ -173,7 +173,7 @@ public class CoronaControllerImpl implements CoronaController {
 				}
 			} else {
 				// 코로나 배치 실패 시 메일 발송
-				Mail.mailSend("savior0319@naver.com", "코로나 배치 성공", "[" + sdf1 + "]" + " 배치 실패");
+				Mail.mailSend("savior0319@naver.com", "코로나 배치 성공", "[" + dateStr1 + "]" + " 배치 실패");
 			}
 
 		} catch (Exception e) {
