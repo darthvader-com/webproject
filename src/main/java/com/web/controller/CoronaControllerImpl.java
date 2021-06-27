@@ -267,14 +267,19 @@ public class CoronaControllerImpl implements CoronaController {
 		} else if (toDate < Integer.parseInt(date)) {
 			msg = "날짜를 확인하세요";
 			isFlag = false;
+		} else {
+			msg = "서비스 준비중입니다.";
+			isFlag = false;
 		}
 
 		request.setAttribute("msg", msg);
+		request.setAttribute("page", "/mindex.do");
 
 		if(isFlag == false) {
 			return "alert";
 		} else {
-			return "redirect:/mindex.do";
+			return "alert";
+//			return "redirect:/mindex.do";
 		}
 	}
 
