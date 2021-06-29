@@ -13,7 +13,7 @@ public class Scheduler {
 	CoronaController c;
 
 	// 10초 */10 * * * * *
-	@Scheduled(cron = "*/10 * * * * *")
+	//@Scheduled(cron = "*/10 * * * * *")
 	/*public void schedulerStatus() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-dd HH:mm:ss");
 		String strDate = sdf.format(new Date());
