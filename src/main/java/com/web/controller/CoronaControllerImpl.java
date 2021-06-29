@@ -183,7 +183,8 @@ public class CoronaControllerImpl implements CoronaController {
 			}
 
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			//System.err.println(e.getMessage());
+			Mail.mailSend("savior0319@naver.com", "코로나 배치 실패(사유)", "실패 메세지: [" + e.getMessage() + "]");
 		}
 
 		return rtn;
