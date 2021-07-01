@@ -64,7 +64,7 @@
 				    	기준일시<input type="text" class="form-control" value="${now}" style="margin-left: 22px; margin-right: 22px;" readonly="readonly" data-input/>
 				    	<a class="input-button"  title="toggle" data-toggle><i class="fa fa-calendar" id="cal"></i></a>
 				    </span>
-					<b>[총 ${list[0].INF_CNT}명]</b>
+					<b>[총 ${list[0].INF_CNT}명] (전일대비 ${list[0].DIFF_CNT})</b>
 					<%--<ons-toolbar-button onclick="redoClick();"><ons-icon icon="fa-redo"></ons-icon></ons-toolbar-button>--%>
 				</div>
 				<table class="table table-sm">

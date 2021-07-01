@@ -51,20 +51,53 @@
 
 	<select id="selectCoronaDate" resultType="HashMap" parameterType="String">
 		SELECT /* selectCoronaDate as MainController */
-		     A.CITY,
-		     A.DEF_CNT,
-		     A.INC_DEC,
-		     A.DEATH_CNT,
-		     A.ISOL_ING_CNT,
-		     A.ISOL_CLEAR_CNT,
-		     A.OVER_FLOW_CNT,
-		     A.LOCAL_OCC_CNT,
-		     A.STD_DAY,
-		     A.OVER_FLOW_CNT + A.LOCAL_OCC_CNT AS INF_CNT,
-	         ROW_NUMBER() OVER (ORDER BY LOCAL_OCC_CNT) AS RANK
-		FROM TCORONA A
-		   WHERE A.INSERT_DATE > TO_DATE(#{date, jdbcType=VARCHAR}, 'yyyymmdd') AND A.INSERT_DATE &lt; TO_DATE(#{date, jdbcType=VARCHAR}, 'yyyymmdd') + 1
-		   GROUP BY A.CITY, A.DEF_CNT, A.INC_DEC, A.DEATH_CNT, A.ISOL_ING_CNT, A.ISOL_CLEAR_CNT, A.OVER_FLOW_CNT, A.LOCAL_OCC_CNT, A.STD_DAY
-		   ORDER BY RANK DESC
+		       CITY,
+		       CASE WHEN GAP = 0 THEN TO_CHAR(GAP) WHEN GAP &lt; 0 THEN TO_CHAR(ABS(GAP)) || '▼' ELSE TO_CHAR(ABS(GAP)) || '▲' END AS DIFF_CNT,
+		       DEF_CNT,
+		       INC_DEC,
+		       DEATH_CNT,
+		       ISOL_ING_CNT,
+		       ISOL_CLEAR_CNT,
+		       OVER_FLOW_CNT,
+		       LOCAL_OCC_CNT,
+		       STD_DAY,
+		       INF_CNT,
+		       RANK
+		  FROM (SELECT
+		         (SELECT C.INC_DEC
+		            FROM TCORONA C
+		           WHERE C.INSERT_DATE > TO_DATE(#{date, jdbcType=VARCHAR}, 'yyyymmdd')
+		             AND C.INSERT_DATE &lt; TO_DATE(#{date, jdbcType=VARCHAR}, 'yyyymmdd') + 1
+		             AND ROWNUM = 1) -
+		         (SELECT B.INC_DEC
+		            FROM TCORONA B
+		           WHERE B.INSERT_DATE > TO_DATE(#{date, jdbcType=VARCHAR}, 'yyyymmdd') - 1
+		             AND B.INSERT_DATE &lt; TO_DATE(#{date, jdbcType=VARCHAR}, 'yyyymmdd')
+		             AND ROWNUM = 1) AS GAP,
+		         A.CITY,
+		         A.DEF_CNT,
+		         A.INC_DEC,
+		         A.DEATH_CNT,
+		         A.ISOL_ING_CNT,
+		         A.ISOL_CLEAR_CNT,
+		         A.OVER_FLOW_CNT,
+		         A.LOCAL_OCC_CNT,
+		         A.STD_DAY,
+		         A.OVER_FLOW_CNT + A.LOCAL_OCC_CNT AS INF_CNT,
+		         ROW_NUMBER() OVER(ORDER BY LOCAL_OCC_CNT) AS RANK
+		          FROM TCORONA A
+		         WHERE A.INSERT_DATE > TO_DATE(#{date, jdbcType=VARCHAR}, 'yyyymmdd')
+		           AND A.INSERT_DATE &lt; TO_DATE(#{date, jdbcType=VARCHAR}, 'yyyymmdd') + 1
+		         GROUP BY A.CITY,
+		                  A.DEF_CNT,
+		                  A.INC_DEC,
+		                  A.DEATH_CNT,
+		                  A.ISOL_ING_CNT,
+		                  A.ISOL_CLEAR_CNT,
+		                  A.OVER_FLOW_CNT,
+		                  A.LOCAL_OCC_CNT,
+		                  A.STD_DAY
+		         ORDER BY RANK DESC)
 	</select>
+
 </mapper>
