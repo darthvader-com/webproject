@@ -6,7 +6,7 @@ public interface CoronaController {
 
 	String corona(HttpServletRequest request);
 
-	String insertCoronaBatch();
+	String insertCoronaBatch(String param);
 
 	String coronaData(HttpServletRequest request, String value);
 

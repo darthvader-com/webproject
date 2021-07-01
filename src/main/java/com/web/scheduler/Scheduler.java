@@ -29,25 +29,25 @@ public class Scheduler {
 	// 매일 오전 10시
 	@Scheduled(cron = "0 0 10 * * *")
 	public void coronaBatch1() {
-		c.insertCoronaBatch();
+		c.insertCoronaBatch("batch1(10시 배치)");
 	}
 
 	// 매일 오전 10시 15분
 	@Scheduled(cron = "0 15 10 * * *")
 	public void coronaBatch2() {
-		c.insertCoronaBatch();
+		c.insertCoronaBatch("batch2(10시 15분 배치)");
 	}
 
 	// 매일 오전 10시 30분
 	@Scheduled(cron = "0 30 10 * * *")
 	public void coronaBatch3() {
-		c.insertCoronaBatch();
+		c.insertCoronaBatch("batch3(10시 30분 배치)");
 	}
 
-	// 매일 오전 11시
-	@Scheduled(cron = "0 0 11 * * *")
+	// 매일 오전 10시 45분
+	@Scheduled(cron = "0 45 10 * * *")
 	public void coronaBatch4() {
-		c.insertCoronaBatch();
+		c.insertCoronaBatch("batch4(10시 45분 배치)");
 	}
 
 }

@@ -105,7 +105,7 @@ public class CoronaControllerImpl implements CoronaController {
 	@Override
 	@SuppressWarnings("all")
 	@RequestMapping(value = "/coronaupdate.do", method = RequestMethod.GET)
-	public String insertCoronaBatch() {
+	public String insertCoronaBatch(String param) {
 
 		String rtn = "";
 		final String SERVICE_KEY = "q%2FFm6LYch%2F0g182SfkDmDHy403n2UcokdweYJvJ1NIbyAK23zccxMDUin4AbuZT0yKWpYfh%2F135f4DMl4HB5wA%3D%3D";
@@ -175,18 +175,18 @@ public class CoronaControllerImpl implements CoronaController {
 			if(rtn.equals("successdata")) {
 				try {
 					// 코로나 배치 성공 시 메일 발송
-					Mail.mailSend("savior0319@naver.com", "코로나 배치 성공", "[" + dateStr1 + "]" + " 배치 정상완료");
+					Mail.mailSend("savior0319@naver.com", param + " / 코로나 배치 성공", "[" + dateStr1 + "]" + " 배치 정상완료");
 				} catch (Exception e) {
 					System.err.println(e.getMessage());
 				}
 			} else {
 				// 코로나 배치 실패 시 메일 발송
-				Mail.mailSend("savior0319@naver.com", "코로나 배치 실패", "[" + dateStr1 + "]" + " 배치 실패");
+				Mail.mailSend("savior0319@naver.com", param + " / 코로나 배치 실패", "[" + dateStr1 + "]" + " 배치 실패");
 			}
 
 		} catch (Exception e) {
 			//System.err.println(e.getMessage());
-			Mail.mailSend("savior0319@naver.com", "코로나 배치 실패(사유)", "실패 메세지: [" + e.getMessage() + "]");
+			Mail.mailSend("savior0319@naver.com", param + " / 코로나 배치 실패(사유)", "실패 메세지: [" + e.getMessage() + "]");
 		}
 
 		return rtn;
