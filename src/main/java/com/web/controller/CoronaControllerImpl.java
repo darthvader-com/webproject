@@ -5,8 +5,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -260,8 +262,10 @@ public class CoronaControllerImpl implements CoronaController {
 		String msg = "";
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
+		String todayStr = sdf.format(new Date());
+
 		// 일주일 전
-		int fromDate = Integer.parseInt(sdf.format(new Date())) - 7;
+		int fromDate = Integer.parseInt(calDate(todayStr , 0, 0, -7));
 
 		// 현재
 		int toDate = Integer.parseInt(sdf.format(new Date()));
@@ -294,6 +298,25 @@ public class CoronaControllerImpl implements CoronaController {
 		} else {
 			return "mindex";
 		}
+	}
+
+
+	public String calDate(String date, int year, int month, int day) {
+		SimpleDateFormat dtFormat = new SimpleDateFormat("yyyyMMdd");
+		Calendar cal = Calendar.getInstance();
+		Date dt;
+		try {
+			dt = dtFormat.parse(date);
+
+			cal.setTime(dt);
+			cal.add(Calendar.YEAR, year);
+			cal.add(Calendar.MONTH, month);
+			cal.add(Calendar.DATE, day);
+		} catch (ParseException e) {
+			System.err.println(e.getMessage());
+		}
+
+		return dtFormat.format(cal.getTime());
 	}
 
 }
