@@ -1,5 +1,8 @@
 package com.web.scheduler;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
@@ -26,28 +29,30 @@ public class Scheduler {
 	//		c.insertCoronaBatch();
 	//	}
 
-	// 매일 오전 10시
-	@Scheduled(cron = "0 0 10 * * *")
+	// 매일 오전 10시 부터 15분 간격 배치
+	@Scheduled(cron = "0 0/15 10 * * *")
 	public void coronaBatch1() {
-		c.insertCoronaBatch("batch1(10시 배치)");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd yyyy-MM-dd HH:mm:ss");
+		String date = sdf.format(new Date());
+		c.insertCoronaBatch("batch1 / " + date);
 	}
 
-	// 매일 오전 10시 15분
-	@Scheduled(cron = "0 15 10 * * *")
-	public void coronaBatch2() {
-		c.insertCoronaBatch("batch2(10시 15분 배치)");
-	}
-
-	// 매일 오전 10시 30분
-	@Scheduled(cron = "0 30 10 * * *")
-	public void coronaBatch3() {
-		c.insertCoronaBatch("batch3(10시 30분 배치)");
-	}
-
-	// 매일 오전 10시 45분
-	@Scheduled(cron = "0 45 10 * * *")
-	public void coronaBatch4() {
-		c.insertCoronaBatch("batch4(10시 45분 배치)");
-	}
+//	// 매일 오전 10시 15분
+//	@Scheduled(cron = "0 15 10 * * *")
+//	public void coronaBatch2() {
+//		c.insertCoronaBatch("batch2(10시 15분 배치)");
+//	}
+//
+//	// 매일 오전 10시 30분
+//	@Scheduled(cron = "0 30 10 * * *")
+//	public void coronaBatch3() {
+//		c.insertCoronaBatch("batch3(10시 30분 배치)");
+//	}
+//
+//	// 매일 오전 10시 45분
+//	@Scheduled(cron = "0 45 10 * * *")
+//	public void coronaBatch4() {
+//		c.insertCoronaBatch("batch4(10시 45분 배치)");
+//	}
 
 }
