@@ -265,13 +265,13 @@ public class CoronaControllerImpl implements CoronaController {
 		String todayStr = sdf.format(new Date());
 
 		// 일주일 전
-		int fromDate = Integer.parseInt(calDate(todayStr , 0, 0, -7));
+		int fromDate = Integer.parseInt(calDate(todayStr , 0, 0, -14));
 
 		// 현재
 		int toDate = Integer.parseInt(sdf.format(new Date()));
 
 		if(fromDate > Integer.parseInt(date)) {
-			msg = "최대 조회기간은 7일입니다";
+			msg = "최대 조회기간은 14일입니다";
 			isFlag = false;
 		} else if (toDate < Integer.parseInt(date)) {
 			msg = "날짜를 확인하세요";
