@@ -9,6 +9,19 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<!-- Data Source Bean <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close"> <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"
+		/> <property name="url" value="jdbc:oracle:thin:@mkhj.ga:1521:xe" /> <property
+		name="username" value="test" /> <property name="password" value="test" />
+		<property name="defaultAutoCommit" value="false" /> </bean> <bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"> <property
+		name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+		<property name="url" value="jdbc:log4jdbc:oracle:thin:@mkhj.ga:1521:xe" />
+		<property name="username" value="test" /> <property name="password" value="test"
+		/> </bean> -->
+
 	<bean id="dataSource_main"
 		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName"
@@ -58,6 +71,10 @@
 			<tx:method name="*" />
 		</tx:attributes>
 	</tx:advice>
+
+	<bean id="uploadPath" class="java.lang.String">
+		<constructor-arg value="/img"></constructor-arg>
+	</bean>
 
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

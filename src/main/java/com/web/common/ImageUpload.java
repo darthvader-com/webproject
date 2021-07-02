@@ -4,22 +4,32 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Controller
 public class ImageUpload {
 
+	@Resource(name = "uploadPath")
+	String uploadPath;
+
 	@RequestMapping(value = "/imageupload.do", method = RequestMethod.POST, produces = "text/plain")
-	public void imageUpload(HttpServletRequest request, HttpServletResponse response, MultipartHttpServletRequest req) throws IOException {
+	public void imageUpload(HttpServletRequest request, HttpServletResponse response, MultipartHttpServletRequest req,
+			MultipartFile file) throws IOException {
+
+		if (!new File(uploadPath).exists()) {
+			new File(uploadPath).mkdirs();
+		}
 
 		req.setCharacterEncoding("utf-8");
-		String path = request.getSession().getServletContext().getRealPath("imageUpload");
 
 		UUID randomString = UUID.randomUUID();
 		String getFile = req.getFile("file").getOriginalFilename();
@@ -27,12 +37,20 @@ public class ImageUpload {
 		String name = getFile.substring(0, index);
 		String ext = getFile.substring(index, getFile.length());
 		String reName = name + "_" + randomString + ext;
-		File reFile = new File(path, reName);
-		req.getFile("file").transferTo(reFile);
-		response.setCharacterEncoding("utf-8");
-		response.getWriter().print("/imageUpload" + "/" + reName);
-		response.getWriter().close();
-	}
 
+		File target = new File(uploadPath, reName);
+
+		try {
+			FileCopyUtils.copy(file.getBytes(), target);
+
+			response.setCharacterEncoding("utf-8");
+			response.getWriter().print("/img" + "/" + reName);
+			response.getWriter().close();
+
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+
+	}
 
 }
