@@ -73,7 +73,7 @@
 	</tx:advice>
 
 	<bean id="uploadPath" class="java.lang.String">
-		<constructor-arg value="/img"></constructor-arg>
+		<constructor-arg value="/image"></constructor-arg>
 	</bean>
 
 	<bean id="multipartResolver"
