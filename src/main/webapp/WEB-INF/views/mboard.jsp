@@ -10,15 +10,12 @@
 
 <body>
 	<div class="container" style="margin-top: 10px;">
-		<h5>게시글 작성</h5>
+		<span style="font-style: 20px; font-weight: 600; margin-top: 6px;">게시글 작성</span><button class="btn btn-primary btn-sm" onclick="save();" style="margin-left: 15px;">저장</button>
 		<hr>
 		<div class="form-group">
 			<input type="text" class="form-control" placeholder="제목" id="title" name="title">
 		</div>
 		<div id="summernote"></div>
-		<div align="center" style="margin-top: 10px;">
-			<button class="btn btn-primary" onclick="save();" style="margin-bottom: 40px;">저장</button>
-		</div>
 	</div>
 <jsp:include page="/resources/common/footer.jsp"></jsp:include>
 </body>
@@ -34,7 +31,7 @@
 			    ['para', ['ul', 'ol']],
 			    ['insert', ['table', 'link', 'picture', 'video']],
 		    ],
-		    height: '350',
+		    height: '330',
 			lang : 'ko-KR',
 			callbacks : {
 				onImageUpload : function(files, editor, welEditable) {
