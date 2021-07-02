@@ -17,7 +17,7 @@
 		</div>
 		<div id="summernote"></div>
 		<div align="center" style="margin-top: 10px;">
-			<button class="btn btn-primary" onclick="save();">저장</button>
+			<button class="btn btn-primary" onclick="save();" style="margin-bottom: 40px;">저장</button>
 		</div>
 	</div>
 <jsp:include page="/resources/common/footer.jsp"></jsp:include>
