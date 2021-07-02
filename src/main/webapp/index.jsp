@@ -12,8 +12,9 @@
 		<div class="row h-100">
 			<div class="col-sm-12 my-auto">
 				<div class="card card-block w-25 mx-auto" style="margin-bottom: 0px; border-top: 0px; border-bottom-width: 0px; border-right-width: 0px; border-left-width: 0px;">
-					<button class="btn btn-primary" onclick="mindex();" style="margin-bottom: 10px; margin-top: 15px;">Moblie</button>
-					<button class="btn btn-primary" onclick="pindex();">PC</button>
+					<button class="btn btn-primary" onclick="mindex();" style="margin-bottom: 3px; margin-top: 8px;">Moblie</button>
+					<button class="btn btn-primary" onclick="pindex();" style="margin-bottom: 3px; margin-top: 8px;">PC</button>
+					<button class="btn btn-primary" onclick="mboard();" style="margin-bottom: 3px; margin-top: 8px;">게시판</button>
 				</div>
 			</div>
 			<img style="margin-top: 10px; margin-bottom: 20px; width: 100%; height: 75%;"  src="/resources/image/darthvader.png" alt="darthvader image">
@@ -28,6 +29,11 @@
 
 	function pindex() {
 		window.location.href = "/pindex.do";
+	}
+
+	function mboard() {
+		var pwd = prompt("비밀번호 입력");
+		window.location.href = "/mboard.do?pwd=" + pwd;
 	}
 </script>
 
