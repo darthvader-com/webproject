@@ -64,16 +64,15 @@
 		       INF_CNT,
 		       RANK
 		  FROM (SELECT
-		         (SELECT C.INC_DEC
+		         (SELECT MAX(C.INC_DEC)
 		            FROM TCORONA C
 		           WHERE C.INSERT_DATE > TO_DATE(#{date, jdbcType=VARCHAR}, 'yyyymmdd')
-		             AND C.INSERT_DATE &lt; TO_DATE(#{date, jdbcType=VARCHAR}, 'yyyymmdd') + 1
-		             AND ROWNUM = 1) -
-		         (SELECT B.INC_DEC
+		             AND C.INSERT_DATE &lt; TO_DATE(#{date, jdbcType=VARCHAR}, 'yyyymmdd') + 1) -
+		         (SELECT MAX(B.INC_DEC)
 		            FROM TCORONA B
 		           WHERE B.INSERT_DATE > TO_DATE(#{date, jdbcType=VARCHAR}, 'yyyymmdd') - 1
 		             AND B.INSERT_DATE &lt; TO_DATE(#{date, jdbcType=VARCHAR}, 'yyyymmdd')
-		             AND ROWNUM = 1) AS GAP,
+		        ) AS GAP,
 		         A.CITY,
 		         A.DEF_CNT,
 		         A.INC_DEC,
