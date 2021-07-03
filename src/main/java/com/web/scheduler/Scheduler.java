@@ -19,7 +19,7 @@ public class Scheduler {
 	String dateStr1 = sdf1.format(new Date());
 
 	// 매일 오전 10시 10분 간격
-	@Scheduled(cron = "0 */10 10 * * *")
+	@Scheduled(cron = "0 0/10 10 * * *")
 	public void coronaBatch0() {
 		System.out.println("10시[10분간격] 배치 호출 시점 ㅣ " + dateStr1);
 		c.insertCoronaBatch("batch1(10시[10분간격] 배치)");
