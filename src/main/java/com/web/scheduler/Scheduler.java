@@ -43,11 +43,11 @@ public class Scheduler {
 //		c.insertCoronaBatch("batch2(10시 15분 배치)");
 //	}
 //
-//	// 매일 오전 10시 30분
-//	@Scheduled(cron = "0 30 10 * * *")
-//	public void coronaBatch3() {
-//		c.insertCoronaBatch("batch3(10시 30분 배치)");
-//	}
+	// 매일 오전 10시 30분
+	@Scheduled(cron = "0 30 10 * * *")
+	public void coronaBatch3() {
+		c.insertCoronaBatch("batch3(10시 30분 배치)");
+	}
 //
 //	// 매일 오전 10시 45분
 //	@Scheduled(cron = "0 45 10 * * *")
