@@ -23,36 +23,36 @@ public class Scheduler {
 		System.out.println("[INFO](" + strDate + ")" + "  서버 정상 실행 중");
 	}*/
 
-	// 매시간 정각 0 0 * * * *
-	//	@Scheduled(cron = "0 0 * * * *")
-	//	public void coronaBatch() {
-	//		c.insertCoronaBatch();
-	//	}
 
-	// 매일 오전 10시 부터 15분 간격 배치
-	@Scheduled(cron = "0 0/15 10 * * *")
-	public void coronaBatch1() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd yyyy-MM-dd HH:mm:ss");
-		String date = sdf.format(new Date());
-		c.insertCoronaBatch("batch1 / " + date);
+	SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	String dateStr1 = sdf1.format(new Date());
+
+	// 매일 오전 10시 10분 간격
+	@Scheduled(cron = "0 0/10 10 * * *")
+	public void coronaBatch0() {
+		System.out.println("10시[10분간격] 배치 호출 시점 ㅣ " + dateStr1);
+		c.insertCoronaBatch("batch1(10시[10분간격] 배치)");
 	}
 
-//	// 매일 오전 10시 15분
-//	@Scheduled(cron = "0 15 10 * * *")
-//	public void coronaBatch2() {
-//		c.insertCoronaBatch("batch2(10시 15분 배치)");
-//	}
-//
+	// 매일 오전 10시
+	@Scheduled(cron = "0 0 10 * * *")
+	public void coronaBatch1() {
+		System.out.println("10시 배치 호출 시점 ㅣ " + dateStr1);
+		c.insertCoronaBatch("batch1(10시 배치)");
+	}
+
 	// 매일 오전 10시 30분
 	@Scheduled(cron = "0 30 10 * * *")
 	public void coronaBatch3() {
+		System.out.println("10시 30분 배치 호출 시점 ㅣ " + dateStr1);
 		c.insertCoronaBatch("batch3(10시 30분 배치)");
 	}
-//
-//	// 매일 오전 10시 45분
-//	@Scheduled(cron = "0 45 10 * * *")
-//	public void coronaBatch4() {
-//		c.insertCoronaBatch("batch4(10시 45분 배치)");
-//	}
+
+	// 매일 오전 11시
+	@Scheduled(cron = "0 0 11 * * *")
+	public void coronaBatch4() {
+		System.out.println("11시 배치 호출 시점 ㅣ " + dateStr1);
+		c.insertCoronaBatch("batch4(11시 배치)");
+	}
 
 }
