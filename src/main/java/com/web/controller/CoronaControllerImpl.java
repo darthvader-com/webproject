@@ -146,30 +146,30 @@ public class CoronaControllerImpl implements CoronaController {
 				list = new ArrayList<HashMap<String, Object>>();
 				HashMap<String, Object> resultMap = null;
 
-				for (int i = itemList.size() - 1; i >= 0; i--) {
-					resultMap = new HashMap<String, Object>();
-					resultMap.put("city", itemList.get(i).get("gubun")); // 도시
-					resultMap.put("incDec", itemList.get(i).get("incDec")); // 전일대비증감
-					resultMap.put("deathCnt", itemList.get(i).get("deathCnt")); // 사망자
-					resultMap.put("isolClearCnt", itemList.get(i).get("isolClearCnt")); // 격리해제
-					resultMap.put("isolIngCnt", itemList.get(i).get("isolIngCnt")); // 격리중
-					resultMap.put("defCnt", itemList.get(i).get("defCnt")); // 확진자
-					resultMap.put("stdDay", itemList.get(i).get("stdDay")); // 기준일시
-					resultMap.put("overFlowCnt", itemList.get(i).get("overFlowCnt")); // 해외유입감염
-					resultMap.put("localOccCnt", itemList.get(i).get("localOccCnt")); // 지역감염
+				// 오늘 데이터 있는지 확인
+				List<?> countList = coronaService.selectCoronaData();
+				Map<String, Integer> countMap = new HashMap<String, Integer>();
+
+				for(int j = 0; j < countList.size(); j++){
+					countMap = (HashMap)countList.get(j);
+				}
+
+				int count = Integer.parseInt(String.valueOf(countMap.get("COUNT")));
+
+				if(count < 1) {
+					for (int i = itemList.size() - 1; i >= 0; i--) {
+						resultMap = new HashMap<String, Object>();
+						resultMap.put("city", itemList.get(i).get("gubun")); // 도시
+						resultMap.put("incDec", itemList.get(i).get("incDec")); // 전일대비증감
+						resultMap.put("deathCnt", itemList.get(i).get("deathCnt")); // 사망자
+						resultMap.put("isolClearCnt", itemList.get(i).get("isolClearCnt")); // 격리해제
+						resultMap.put("isolIngCnt", itemList.get(i).get("isolIngCnt")); // 격리중
+						resultMap.put("defCnt", itemList.get(i).get("defCnt")); // 확진자
+						resultMap.put("stdDay", itemList.get(i).get("stdDay")); // 기준일시
+						resultMap.put("overFlowCnt", itemList.get(i).get("overFlowCnt")); // 해외유입감염
+						resultMap.put("localOccCnt", itemList.get(i).get("localOccCnt")); // 지역감염
 
 
-					// 오늘 데이터 있는지 확인
-					List<?> countList = coronaService.selectCoronaData();
-					Map<String, Integer> countMap = new HashMap<String, Integer>();
-
-					for(int j = 0; j < countList.size(); j++){
-						countMap = (HashMap)countList.get(j);
-					}
-
-					int count = Integer.parseInt(String.valueOf(countMap.get("COUNT")));
-
-					if(count < 1) {
 						int executeRtn = coronaService.insertCorona(resultMap);
 
 						if (executeRtn != 1) {
@@ -177,10 +177,11 @@ public class CoronaControllerImpl implements CoronaController {
 						} else {
 							rtn = "successdata";
 						}
-					} else {
-						rtn = "exist";
 					}
+				} else {
+					rtn = "exist";
 				}
+
 			}
 
 			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
