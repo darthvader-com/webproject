@@ -167,7 +167,7 @@ public class CoronaControllerImpl implements CoronaController {
 						countMap = (HashMap)countList.get(j);
 					}
 
-					int count = Integer.parseInt(countMap.get("COUNT").toString());
+					int count = Integer.parseInt(String.valueOf(countMap.get("COUNT")));
 
 					if(count < 1) {
 						int executeRtn = coronaService.insertCorona(resultMap);
@@ -202,7 +202,7 @@ public class CoronaControllerImpl implements CoronaController {
 			}
 
 		} catch (Exception e) {
-			//System.err.println(e.getMessage());
+			System.err.println(e.getMessage());
 			Mail.mailSend("savior0319@naver.com", param + " / 코로나 배치 실패", "실패 메세지: [" + e.getMessage() + "]" + " (데이터가 없습니다)");
 		}
 
