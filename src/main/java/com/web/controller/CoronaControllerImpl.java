@@ -158,15 +158,29 @@ public class CoronaControllerImpl implements CoronaController {
 					resultMap.put("overFlowCnt", itemList.get(i).get("overFlowCnt")); // 해외유입감염
 					resultMap.put("localOccCnt", itemList.get(i).get("localOccCnt")); // 지역감염
 
-					int executeRtn = coronaService.insertCorona(resultMap);
 
-					if (executeRtn != 1) {
-						rtn = "error";
+					// 오늘 데이터 있는지 확인
+					List<?> countList = coronaService.selectCoronaData();
+					Map<?, ?> countMap = new HashMap<>();
+
+					for(int j = 0; j < countList.size(); j++){
+						countMap = (HashMap)countList.get(j);
+					}
+
+					int count = Integer.parseInt(countMap.get("COUNT").toString());
+
+					if(count < 1) {
+						int executeRtn = coronaService.insertCorona(resultMap);
+
+						if (executeRtn != 1) {
+							rtn = "error";
+						} else {
+							rtn = "successdata";
+						}
 					} else {
-						rtn = "successdata";
+						rtn = "exist";
 					}
 				}
-
 			}
 
 			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -175,18 +189,21 @@ public class CoronaControllerImpl implements CoronaController {
 			if(rtn.equals("successdata")) {
 				try {
 					// 코로나 배치 성공 시 메일 발송
-					Mail.mailSend("savior0319@naver.com", param + " / 코로나 배치 성공", "[" + dateStr1 + "]" + " 배치 정상완료");
+					Mail.mailSend("savior0319@naver.com", param + " / 코로나 배치 성공", "[" + dateStr1 + "]" + " (배치 정상)");
 				} catch (Exception e) {
 					System.err.println(e.getMessage());
 				}
-			} else {
+			} else if(rtn.equals("error")){
 				// 코로나 배치 실패 시 메일 발송
-				Mail.mailSend("savior0319@naver.com", param + " / 코로나 배치 실패", "[" + dateStr1 + "]" + " 배치 실패");
+				Mail.mailSend("savior0319@naver.com", param + " / 코로나 배치 실패", "[" + dateStr1 + "]" + " (배치 실패)");
+			} else if(rtn.equals("exist")){
+				// 코로나 배치 데이터 있을 경우 확인용 메일 발송
+				Mail.mailSend("savior0319@naver.com", param + " / 코로나 배치 성공 ", "[" + dateStr1 + "]" + " (이미 데이터가 존재합니다) ");
 			}
 
 		} catch (Exception e) {
 			//System.err.println(e.getMessage());
-			Mail.mailSend("savior0319@naver.com", param + " / 코로나 배치 실패(사유)", "실패 메세지: [" + e.getMessage() + "]");
+			Mail.mailSend("savior0319@naver.com", param + " / 코로나 배치 실패", "실패 메세지: [" + e.getMessage() + "]" + " (데이터가 없습니다)");
 		}
 
 		return rtn;

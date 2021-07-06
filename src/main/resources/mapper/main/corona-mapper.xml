@@ -99,4 +99,11 @@
 		         ORDER BY RANK DESC)
 	</select>
 
+	<select id="selectCoronaData" resultType="HashMap">
+		SELECT /* selectCoronaData as MainController */
+			COUNT(1) AS COUNT
+		  FROM TCORONA A
+		 WHERE A.INSERT_DATE > TRUNC(SYSDATE)
+	</select>
+
 </mapper>

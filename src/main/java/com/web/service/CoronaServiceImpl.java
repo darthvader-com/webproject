@@ -30,4 +30,9 @@ public class CoronaServiceImpl implements CoronaService {
 		return coronaDAO.selectCoronaDate(date);
 	}
 
+	@Override
+	public List<?> selectCoronaData() {
+		return coronaDAO.selectCoronaData();
+	}
+
 }
