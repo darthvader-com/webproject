@@ -161,7 +161,7 @@ public class CoronaControllerImpl implements CoronaController {
 
 					// 오늘 데이터 있는지 확인
 					List<?> countList = coronaService.selectCoronaData();
-					Map<String, Integer> countMap = new HashMap<>();
+					Map<String, Integer> countMap = new HashMap<String, Integer>();
 
 					for(int j = 0; j < countList.size(); j++){
 						countMap = (HashMap)countList.get(j);
