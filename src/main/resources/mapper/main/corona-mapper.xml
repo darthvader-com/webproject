@@ -64,11 +64,11 @@
 		       INF_CNT,
 		       RANK
 		  FROM (SELECT
-		         (SELECT MAX(C.INC_DEC)
+		         (SELECT MAX(C.OVER_FLOW_CNT + C.LOCAL_OCC_CNT)
 		            FROM TCORONA C
 		           WHERE C.INSERT_DATE > TO_DATE(#{date, jdbcType=VARCHAR}, 'yyyymmdd')
 		             AND C.INSERT_DATE &lt; TO_DATE(#{date, jdbcType=VARCHAR}, 'yyyymmdd') + 1) -
-		         (SELECT MAX(B.INC_DEC)
+		         (SELECT MAX(B.OVER_FLOW_CNT + B.LOCAL_OCC_CNT)
 		            FROM TCORONA B
 		           WHERE B.INSERT_DATE > TO_DATE(#{date, jdbcType=VARCHAR}, 'yyyymmdd') - 1
 		             AND B.INSERT_DATE &lt; TO_DATE(#{date, jdbcType=VARCHAR}, 'yyyymmdd')
