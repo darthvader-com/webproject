@@ -108,11 +108,22 @@
 
 	<select id="selectDayCoronaCount" resultType="HashMap">
 		SELECT TO_CHAR(A.INSERT_DATE, 'MM/DD') AS DAY,
-		       (A.OVER_FLOW_CNT + A.LOCAL_OCC_CNT) AS DAY_CORONA
+		       (A.OVER_FLOW_CNT + A.LOCAL_OCC_CNT) AS DAY_CORONA,
+		       0 AS DAY_MAX
 		  FROM TCORONA A
 		 WHERE A.CITY = '합계'
 		   AND A.INSERT_DATE > TRUNC(SYSDATE) - 7
-		 ORDER BY A.INSERT_DATE ASC
+
+		UNION
+
+		SELECT '0' AS DAY,
+		       0 AS DAY_CORONA,
+		       MAX(A.OVER_FLOW_CNT + A.LOCAL_OCC_CNT) AS DAY_MAX
+		  FROM TCORONA A
+		 WHERE A.CITY = '합계'
+		   AND A.INSERT_DATE > TRUNC(SYSDATE) - 7
+
+		 ORDER BY 1
 	</select>
 
 	<select id="selectDayCoronaCountMax" resultType="HashMap">

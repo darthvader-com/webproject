@@ -68,7 +68,7 @@ public class CoronaControllerImpl implements CoronaController {
 
 		List<?> list = coronaService.selectCoronaDate(dateStr);
 		List<?> listCount = coronaService.selectDayCoronaCount();
-		List<?> listCountMax = coronaService.selectDayCoronaCountMax();
+		//List<?> listCountMax = coronaService.selectDayCoronaCountMax();
 
 		// 오늘날짜 데이터가 없을경우 어제 데이터
 		if(list.size() == 0) {
@@ -78,7 +78,7 @@ public class CoronaControllerImpl implements CoronaController {
 
 		request.setAttribute("list", list);
 		request.setAttribute("listCount", listCount);
-		request.setAttribute("listCountMax", listCountMax);
+		//equest.setAttribute("listCountMax", listCountMax);
 		request.setAttribute("year", dateStr.substring(0, 4));
 		request.setAttribute("month", dateStr.substring(4, 6));
 		request.setAttribute("date", dateStr.substring(6, 8));

@@ -96,10 +96,10 @@
 			<p style="text-align: center;">
 			 	<!-- <div style="text-align: center; margin-bottom: 10px;">기준일시 ${list[0].STD_DAY}&nbsp;<ons-toolbar-button onclick="redoClick();"><ons-icon icon="fa-redo"></ons-icon></ons-toolbar-button></div>  -->
 				<table class="charts-css bar show-labels show-data-axes data-spacing-5 show-data-on-hover" style="height: 80%; width: 95%; margin-left: 0px;">
-					<c:forEach var="item" items="${listCount}" begin="0">
+					<c:forEach var="item" items="${listCount}" begin="1">
 						<tr>
 						 	<th scope="row">${item.DAY}</th>
-							<td class="tooltip-m" style="--size: calc( ${item.DAY_CORONA} / ${listCountMax[0].DAY_MAX} )"><!-- <span class="data">${item.INF_CNT} </span> --> <span class="tooltiptext" style="">${item.DAY_CORONA}명</span></td>
+							<td class="tooltip-m" style="--size: calc( ${item.DAY_CORONA} / ${listCount[0].DAY_MAX} )"><!-- <span class="data">${item.INF_CNT} </span> --> <span class="tooltiptext" style="">${item.DAY_CORONA}명</span></td>
 						</tr>
 					</c:forEach>
 				</table>
