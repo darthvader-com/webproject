@@ -35,4 +35,14 @@ public class CoronaServiceImpl implements CoronaService {
 		return coronaDAO.selectCoronaData();
 	}
 
+	@Override
+	public List<?> selectDayCoronaCount() {
+		return coronaDAO.selectDayCoronaCount();
+	}
+
+	@Override
+	public List<?> selectDayCoronaCountMax() {
+		return coronaDAO.selectDayCoronaCountMax();
+	}
+
 }

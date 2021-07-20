@@ -52,7 +52,7 @@
 		</ons-toolbar>
 		<ons-tabbar swipeable position="auto">
 			<ons-tab page="tab1.html" label="지역별 코로나19 현황(표)" icon="fa-table" active></ons-tab>
-		    <ons-tab page="tab2.html" label="지역별 코로나19 현황(그래프)" icon="fa-chart-bar"></ons-tab>
+		    <ons-tab page="tab2.html" label="주간 코로나19 현황(그래프)" icon="fa-chart-bar"></ons-tab>
 		</ons-tabbar>
 	</ons-page>
 
@@ -94,12 +94,12 @@
 	<template id="tab2.html">
 		<ons-page id="Tab2">
 			<p style="text-align: center;">
-			 	<div style="text-align: center; margin-bottom: 10px;">기준일시 ${list[0].STD_DAY}&nbsp;<ons-toolbar-button onclick="redoClick();"><ons-icon icon="fa-redo"></ons-icon></ons-toolbar-button></div>
-				<table class="charts-css bar show-labels show-data-axes data-spacing-5 show-data-on-hover" style="height: 100%; width: 95%; margin-left: 0px;">
-					<c:forEach var="item" items="${list}" begin="0">
+			 	<!-- <div style="text-align: center; margin-bottom: 10px;">기준일시 ${list[0].STD_DAY}&nbsp;<ons-toolbar-button onclick="redoClick();"><ons-icon icon="fa-redo"></ons-icon></ons-toolbar-button></div>  -->
+				<table class="charts-css bar show-labels show-data-axes data-spacing-5 show-data-on-hover" style="height: 80%; width: 95%; margin-left: 0px;">
+					<c:forEach var="item" items="${listCount}" begin="0">
 						<tr>
-						 	<th scope="row">${item.CITY}</th>
-							<td class="tooltip-m" style="--size: calc( ${item.INF_CNT} / ${list[0].INF_CNT} )"><!-- <span class="data">${item.INF_CNT} </span> --> <span class="tooltiptext" style="">${item.INF_CNT}명</span></td>
+						 	<th scope="row">${item.DAY}</th>
+							<td class="tooltip-m" style="--size: calc( ${item.DAY_CORONA} / ${listCountMax[0].DAY_MAX} )"><!-- <span class="data">${item.INF_CNT} </span> --> <span class="tooltiptext" style="">${item.DAY_CORONA}명</span></td>
 						</tr>
 					</c:forEach>
 				</table>

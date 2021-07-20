@@ -26,4 +26,12 @@ public class CoronaDAO extends AbstractDAO {
 		return selectList("corona.selectCoronaData", null);
 	}
 
+	public List<?> selectDayCoronaCount() {
+		return selectList("corona.selectDayCoronaCount", null);
+	}
+
+	public List<?> selectDayCoronaCountMax() {
+		return selectList("corona.selectDayCoronaCountMax", null);
+	}
+
 }

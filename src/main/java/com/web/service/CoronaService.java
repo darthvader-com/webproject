@@ -13,4 +13,8 @@ public interface CoronaService {
 
 	List<?> selectCoronaData();
 
+	List<?> selectDayCoronaCount();
+
+	List<?> selectDayCoronaCountMax();
+
 }
