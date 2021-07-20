@@ -27,4 +27,8 @@ public class MainDAO extends AbstractDAO {
 		return update("main.updateEnchant", hMap);
 	}
 
+	public List<HashMap<String, String>> getBoardPwd(String pwd) {
+		return selectMapToList("main.getBoardPwd", pwd);
+	}
+
 }

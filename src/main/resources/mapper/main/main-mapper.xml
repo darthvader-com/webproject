@@ -71,4 +71,11 @@
 		   AND A.ITEM_KEY = #{itemKey, jdbcType=VARCHAR}
 	</update>
 
+	<select id="getBoardPwd" resultType="HashMap">
+		SELECT /* getBoardPwd as MainController */
+		 		A.TEMP2 AS PWD
+	 	  FROM TEMP_TBL A
+	 	 WHERE A.TEMP1 = #{pwd, jdbcType=VARCHAR}
+	</select>
+
 </mapper>

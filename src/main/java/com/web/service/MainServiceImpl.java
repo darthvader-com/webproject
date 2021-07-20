@@ -37,4 +37,9 @@ public class MainServiceImpl implements MainService {
 		return mainDAO.updateEnchant(hMap);
 	}
 
+	@Override
+	public List<HashMap<String, String>> getBoardPwd(String pwd) {
+		return mainDAO.getBoardPwd(pwd);
+	}
+
 }

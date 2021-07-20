@@ -15,4 +15,6 @@ public interface MainService {
 
 	int updateEnchant(HashMap<String, String> hMap);
 
+	List<HashMap<String, String>> getBoardPwd(String pwd);
+
 }

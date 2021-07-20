@@ -1,5 +1,6 @@
 package com.web.common;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -27,6 +28,10 @@ public class AbstractDAO {
 	}
 
 	public List<Object> selectList(String value, Object object) {
+		return session.selectList(value, object);
+	}
+
+	public List<HashMap<String, String>> selectMapToList(String value, Object object) {
 		return session.selectList(value, object);
 	}
 
