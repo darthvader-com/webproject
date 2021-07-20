@@ -10,26 +10,33 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.web.service.MainService;
 
 @Controller
 public class BoardControllerImpl implements BoardController {
 
-	@Resource(name =  "mainService")
+	@Resource(name = "mainService")
 	private MainService ms;
 
 	@Override
-	@RequestMapping(value = "/mboard.do", method = RequestMethod.GET)
-	public String mboard(HttpServletRequest request, @RequestParam String pwd) {
+	@ResponseBody
+	@RequestMapping(value = "/boardAjax.do", method = RequestMethod.POST, produces = "application/text; charset=utf8")
+	public String boardAjax(HttpServletRequest request, @RequestParam String pwd) {
 		List<HashMap<String, String>> tempPwd = ms.getBoardPwd("board");
 
-		if(pwd.equals(tempPwd.get(0).get("PWD"))) {
-			return "mboard";
+		if (pwd.equals(tempPwd.get(0).get("PWD"))) {
+			return "success";
 		} else {
-			request.setAttribute("msg", "비밀번호가 잘못입력되었습니다");
-			request.setAttribute("page", "/");
-			return "alert";
+			return "fail";
 		}
 	}
+
+	@Override
+	@RequestMapping(value = "/mboard.do", method = RequestMethod.GET)
+	public String mboard() {
+		return "mboard";
+	}
+
 }

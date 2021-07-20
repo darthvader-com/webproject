@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface BoardController {
 
-	String mboard(HttpServletRequest request, String pwd);
+	String boardAjax(HttpServletRequest request, String pwd);
+
+	String mboard();
 
 }

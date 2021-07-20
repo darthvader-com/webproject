@@ -33,7 +33,23 @@
 
 	function mboard() {
 		var pwd = prompt("비밀번호 입력");
-		window.location.href = "/mboard.do?pwd=" + pwd;
+		$.ajax({
+			url : "/boardAjax.do",
+			method : "POST",
+			data : {
+				pwd : pwd,
+			},
+			success : function(data) {
+				if (data == "success") {
+					window.location.href="/mboard.do"
+				} else {
+					alert("비밀번호를 확인하세요");
+				}
+			},
+			error : function(error) {
+				alert("에러<br>관리자에게 문의바랍니다.");
+			}
+		});
 	}
 </script>
 

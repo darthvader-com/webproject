@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<jsp:include page="/resources/common/referer.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,8 +20,8 @@
 	</div>
 <jsp:include page="/resources/common/footer.jsp"></jsp:include>
 </body>
-<script>
 
+<script>
 	/* summernote 로드 */
 	$(document).ready(function() {
 		$('#summernote').summernote({
