@@ -51,8 +51,8 @@
    		    </div>
 		</ons-toolbar>
 		<ons-tabbar swipeable position="auto">
-			<ons-tab page="tab1.html" label="지역별 코로나19 현황(표)" icon="fa-table" active></ons-tab>
-		    <ons-tab page="tab2.html" label="주간 코로나19 현황(그래프)" icon="fa-chart-bar"></ons-tab>
+			<ons-tab page="tab1.html" label="일일 코로나19 현황" icon="fa-table" active></ons-tab>
+		    <ons-tab page="tab2.html" label="주간 코로나19 현황" icon="fa-chart-bar"></ons-tab>
 		</ons-tabbar>
 	</ons-page>
 
@@ -95,7 +95,7 @@
 		<ons-page id="Tab2">
 			<p style="text-align: center;">
 			 	<!-- <div style="text-align: center; margin-bottom: 10px;">기준일시 ${list[0].STD_DAY}&nbsp;<ons-toolbar-button onclick="redoClick();"><ons-icon icon="fa-redo"></ons-icon></ons-toolbar-button></div>  -->
-				<table class="charts-css bar show-labels show-data-axes data-spacing-5 show-data-on-hover" style="height: 80%; width: 95%; margin-left: 0px;">
+				<table class="charts-css bar show-labels show-data-axes data-spacing-5 show-data-on-hover" style="height: 85%; width: 95%; margin-left: 0px;">
 					<c:forEach var="item" items="${listCount}" begin="1">
 						<tr>
 						 	<th scope="row">${item.DAY}</th>

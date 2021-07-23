@@ -299,6 +299,7 @@ public class CoronaControllerImpl implements CoronaController {
 			isFlag = false;
 		} else {
 			List<?> list = coronaService.selectCoronaDate(date);
+			List<?> listCount = coronaService.selectDayCoronaCount();
 
 			// 오늘날짜 데이터가 없을경우 어제 데이터
 			if(list.size() == 0) {
@@ -307,6 +308,7 @@ public class CoronaControllerImpl implements CoronaController {
 			}
 
 			request.setAttribute("list", list);
+			request.setAttribute("listCount", listCount);
 			request.setAttribute("now", date.substring(0, 4) + "년 " + date.substring(4, 6) + "월 " + date.substring(6, 8) + "일");
 			isFlag = true;
 		}
