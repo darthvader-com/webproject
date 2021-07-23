@@ -66,5 +66,6 @@
 		window.location.href = "/mindex.do"
 	}
 </script>
+<jsp:include page="/resources/common/prevent.jsp"></jsp:include>
 </html>
 

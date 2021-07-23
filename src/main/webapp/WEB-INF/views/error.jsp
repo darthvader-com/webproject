@@ -20,5 +20,6 @@
 		window.history.back();
 	}
 </script>
+<jsp:include page="/resources/common/prevent.jsp"></jsp:include>
 </html>
 

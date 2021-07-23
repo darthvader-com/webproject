@@ -17,5 +17,6 @@
 <script type="text/javascript">
 
 </script>
+<jsp:include page="/resources/common/prevent.jsp"></jsp:include>
 </html>
 

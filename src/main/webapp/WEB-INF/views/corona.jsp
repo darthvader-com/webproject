@@ -124,5 +124,5 @@
 	max-width: none !important;
 }
 </style>
-
+<jsp:include page="/resources/common/prevent.jsp"></jsp:include>
 </html>
