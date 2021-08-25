@@ -108,6 +108,7 @@ public class CoronaControllerImpl implements CoronaController {
 	// 코로나 데이터 업데이트 배치
 	@Override
 	@SuppressWarnings("all")
+	@RequestMapping(value = "/update.do", method = RequestMethod.GET)
 	public String insertCoronaBatch(String param) {
 
 		String rtn = "";
