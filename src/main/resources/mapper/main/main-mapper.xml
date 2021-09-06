@@ -78,4 +78,19 @@
 	 	 WHERE A.TEMP1 = #{pwd, jdbcType=VARCHAR}
 	</select>
 
+	<select id="selectFindaddress" resultType="HashMap">
+		SELECT /* selectFindaddress as MainController */
+				ROW_NUMBER() OVER(ORDER BY A.CODE ASC) AS NO,
+				A.CODE,
+				A.CITY,
+			    A.COUNTY,
+			    A.DISTRICT,
+			    A.XAXIS,
+			    A.YAXIS
+		  FROM TLOCATION A
+		 WHERE A.DISTRICT LIKE #{district, jdbcType=VARCHAR} || '%'
+		    OR REGEXP_REPLACE(A.DISTRICT, '[0-9]', '') LIKE #{district, jdbcType=VARCHAR} || '%'
+		 ORDER BY A.CODE ASC
+	</select>
+
 </mapper>

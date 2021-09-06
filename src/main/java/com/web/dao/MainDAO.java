@@ -31,4 +31,8 @@ public class MainDAO extends AbstractDAO {
 		return selectMapToList("main.getBoardPwd", pwd);
 	}
 
+	public List<?> selectFindaddress(String district) {
+		return selectList("main.selectFindaddress", district);
+	}
+
 }

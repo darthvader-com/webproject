@@ -131,4 +131,26 @@ public class MainControllerImpl implements MainController {
 		return resultRtn;
 	}
 
+	// 주소가져오기 테스트 페이지이동
+	@Override
+	@RequestMapping(value = "/maddress.do", method = RequestMethod.GET)
+	public String maddress() {
+		return "maddress";
+	}
+
+	// 주소가져오기 DB
+	@Override
+	@RequestMapping(value = "/findaddress.do", method = RequestMethod.POST)
+	public String findaddress(HttpServletRequest request, @RequestParam HashMap<String, String> hMap) {
+		String district = hMap.get("address");
+
+		List<?> list = mainService.selectFindaddress(district);
+
+		request.setAttribute("resultAddress", district);
+		request.setAttribute("size", list.size());
+		request.setAttribute("list", list);
+
+		return "findaddress";
+	}
+
 }

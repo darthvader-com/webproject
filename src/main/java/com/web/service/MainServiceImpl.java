@@ -42,4 +42,9 @@ public class MainServiceImpl implements MainService {
 		return mainDAO.getBoardPwd(pwd);
 	}
 
+	@Override
+	public List<?> selectFindaddress(String district) {
+		return mainDAO.selectFindaddress(district);
+	}
+
 }

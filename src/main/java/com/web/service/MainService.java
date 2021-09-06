@@ -17,4 +17,6 @@ public interface MainService {
 
 	List<HashMap<String, String>> getBoardPwd(String pwd);
 
+	List<?> selectFindaddress(String district);
+
 }

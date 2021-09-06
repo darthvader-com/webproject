@@ -19,4 +19,8 @@ public interface MainController {
 
 	String enchant(HttpServletRequest request, HashMap<String, String> hMap);
 
+	String maddress();
+
+	String findaddress(HttpServletRequest request, HashMap<String, String> hMap);
+
 }
