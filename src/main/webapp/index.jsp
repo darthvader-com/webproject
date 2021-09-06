@@ -15,7 +15,7 @@
 					<button class="btn btn-primary" onclick="mindex();" style="margin-bottom: 3px; margin-top: 8px;">Moblie</button>
 					<button class="btn btn-primary" onclick="pindex();" style="margin-bottom: 3px; margin-top: 8px;">PC</button>
 					<button class="btn btn-primary" onclick="mboard();" style="margin-bottom: 3px; margin-top: 8px;">게시판</button>
-					<button class="btn btn-primary" onclick="maddress();" style="margin-bottom: 3px; margin-top: 8px;">주소(테스트)</button>
+					<button class="btn btn-primary" onclick="maddress();" style="margin-bottom: 3px; margin-top: 8px;">주소테스트</button>
 				</div>
 			</div>
 			<img style="margin-top: 10px; margin-bottom: 20px; width: 100%; height: 75%;"  src="/resources/image/darthvader.png" alt="darthvader image">
