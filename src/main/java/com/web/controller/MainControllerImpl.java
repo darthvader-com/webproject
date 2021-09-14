@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -151,6 +152,15 @@ public class MainControllerImpl implements MainController {
 		request.setAttribute("list", list);
 
 		return "findaddress";
+	}
+
+	// AJAX 테스트
+	@ResponseBody
+	@RequestMapping(value = "/ajaxtest.do", method = RequestMethod.POST, produces = "application/json; charset=utf8")
+	public String ajaxtest(HttpServletRequest request, @RequestBody HashMap<String, String> test) {
+//		System.out.println(test.get("id"));
+//		System.out.println(test.get("pwd"));
+		return "테스트 성공";
 	}
 
 }
