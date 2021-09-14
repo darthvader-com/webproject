@@ -158,9 +158,8 @@ public class MainControllerImpl implements MainController {
 	@ResponseBody
 	@RequestMapping(value = "/ajaxtest.do", method = RequestMethod.POST, produces = "application/json; charset=utf8")
 	public String ajaxtest(HttpServletRequest request, @RequestBody HashMap<String, String> test) {
-//		System.out.println(test.get("id"));
-//		System.out.println(test.get("pwd"));
-		return "테스트 성공";
+		String rtn = test.get("val");
+		return rtn;
 	}
 
 }

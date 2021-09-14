@@ -16,7 +16,8 @@
 					<button class="btn btn-primary" onclick="pindex();" style="margin-bottom: 3px; margin-top: 8px;">PC</button>
 					<button class="btn btn-primary" onclick="mboard();" style="margin-bottom: 3px; margin-top: 8px;">게시판</button>
 					<button class="btn btn-primary" onclick="maddress();" style="margin-bottom: 3px; margin-top: 8px;">주소테스트</button>
-					<!-- <button class="btn btn-primary" onclick="ajaxTest();" style="margin-bottom: 3px; margin-top: 8px;">AJAX</button> -->
+					<input class="form-control" type="text" id="input1" placeholder="테스트값">
+					<button class="btn btn-primary" onclick="ajaxTest();" style="margin-bottom: 3px; margin-top: 8px;">AJAX테스트</button>
 				</div>
 			</div>
 			<img style="margin-top: 10px; margin-bottom: 20px; width: 100%; height: 75%;"  src="/resources/image/darthvader.png" alt="darthvader image">
@@ -58,19 +59,29 @@
 		});
 	}
 
-/* 	function ajaxTest() {
-		var xhr = new XMLHttpRequest();
-			xhr.open('POST', '/ajaxtest.do');
-			xhr.setRequestHeader('Content-Type', 'application/json');
-			var data = {id: 'dummy',  pwd: '1234'};
-			xhr.send(JSON.stringify(data));
+ 	function ajaxTest() {
+ 		var getVal = document.getElementById('input1').value;
 
-		xhr.onreadystatechange = function(){
-		   if(xhr.readyState == 4 && xhr.status == 200) {
-		        alert(xhr.responseText);
-		    }
-		};
-	} */
+ 		if(getVal == null || getVal == ''){
+ 			alert('값을 입력하세요');
+ 		} else {
+			var xhr = new XMLHttpRequest();
+				xhr.open('POST', '/ajaxtest.do');
+				xhr.setRequestHeader('Content-Type', 'application/json');
+				var data = {val: getVal};
+				xhr.send(JSON.stringify(data));
+
+			xhr.onreadystatechange = function(){
+		   		if (xhr.readyState === xhr.DONE) {
+				    if (xhr.status === 200 || xhr.status === 201) {
+				        alert('테스트성공(입력값: ' + xhr.responseText + ')');
+				    } else {
+				    	alert('테스트실패');
+				    }
+				}
+			};
+ 		}
+	}
 
 </script>
 
