@@ -11,12 +11,12 @@
 	<div class="container">
 		<div class="row h-100">
 			<div class="col-sm-12 my-auto">
-				<div class="card card-block w-25 mx-auto" style="margin-bottom: 0px; border-top: 0px; border-bottom-width: 0px; border-right-width: 0px; border-left-width: 0px;">
+				<div class="card card-block w-70 mx-auto" style="margin-bottom: 0px; border-top: 0px; border-bottom-width: 0px; border-right-width: 0px; border-left-width: 0px;">
 					<button class="btn btn-primary" onclick="mindex();" style="margin-bottom: 3px; margin-top: 8px;">Moblie</button>
 					<button class="btn btn-primary" onclick="pindex();" style="margin-bottom: 3px; margin-top: 8px;">PC</button>
 					<button class="btn btn-primary" onclick="mboard();" style="margin-bottom: 3px; margin-top: 8px;">게시판</button>
 					<button class="btn btn-primary" onclick="maddress();" style="margin-bottom: 3px; margin-top: 8px;">주소테스트</button>
-					<input class="form-control" type="text" id="input1" placeholder="테스트값">
+					<input class="form-control" type="text" id="input1" placeholder="테스트값입력">
 					<button class="btn btn-primary" onclick="ajaxTest();" style="margin-bottom: 3px; margin-top: 8px;">AJAX테스트</button>
 				</div>
 			</div>
