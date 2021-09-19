@@ -109,6 +109,7 @@
 	<select id="selectDayCoronaCount" resultType="HashMap">
 		SELECT /* selectDayCoronaCount as MainController */
 			   TO_CHAR(A.INSERT_DATE, 'MM/DD') AS DAY,
+			   SUBSTR(A.STD_DAY, 7, 7) DAY1,
 		       (A.OVER_FLOW_CNT + A.LOCAL_OCC_CNT) AS DAY_CORONA,
 		       0 AS DAY_MAX
 		  FROM TCORONA A
@@ -118,6 +119,7 @@
 		UNION
 
 		SELECT '0' AS DAY,
+			   '0' AS DAY1,
 		       0 AS DAY_CORONA,
 		       MAX(A.OVER_FLOW_CNT + A.LOCAL_OCC_CNT) AS DAY_MAX
 		  FROM TCORONA A
