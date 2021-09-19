@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.web.common.Mail;
 import com.web.service.CoronaService;
 
 @Controller
@@ -189,20 +190,20 @@ public class CoronaControllerImpl implements CoronaController {
 			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String dateStr1 = sdf1.format(new Date());
 
-//			if(rtn.equals("successdata")) {
-//				try {
-//					// 코로나 배치 성공 시 메일 발송
-//					Mail.mailSend("savior0319@naver.com", param + " / 코로나 배치 성공", "[" + dateStr1 + "]" + " (배치 정상)");
-//				} catch (Exception e) {
-//					System.err.println(e.getMessage());
-//				}
-//			} else if(rtn.equals("error")){
-//				// 코로나 배치 실패 시 메일 발송
-//				Mail.mailSend("savior0319@naver.com", param + " / 코로나 배치 실패", "[" + dateStr1 + "]" + " (배치 실패)");
-//			} else if(rtn.equals("exist")){
-//				// 코로나 배치 데이터 있을 경우 확인용 메일 발송
-//				Mail.mailSend("savior0319@naver.com", param + " / 코로나 배치 성공 ", "[" + dateStr1 + "]" + " (이미 데이터가 존재합니다) ");
-//			}
+			if(rtn.equals("successdata")) {
+				try {
+					// 코로나 배치 성공 시 메일 발송
+					Mail.mailSend("savior0319@naver.com", param + " / 코로나 배치 성공", "[" + dateStr1 + "]" + " (배치 정상)");
+				} catch (Exception e) {
+					System.err.println(e.getMessage());
+				}
+			} else if(rtn.equals("error")){
+				// 코로나 배치 실패 시 메일 발송
+				Mail.mailSend("savior0319@naver.com", param + " / 코로나 배치 실패", "[" + dateStr1 + "]" + " (배치 실패)");
+			} else if(rtn.equals("exist")){
+				// 코로나 배치 데이터 있을 경우 확인용 메일 발송
+				Mail.mailSend("savior0319@naver.com", param + " / 코로나 배치 성공 ", "[" + dateStr1 + "]" + " (이미 데이터가 존재합니다) ");
+			}
 
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
