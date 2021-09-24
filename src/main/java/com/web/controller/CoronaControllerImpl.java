@@ -107,6 +107,7 @@ public class CoronaControllerImpl implements CoronaController {
 
 	// 코로나 데이터 업데이트 배치
 	@Override
+        @RequestMapping(value = "/update.do", method = RequestMethod.GET)
 	@SuppressWarnings("all")
 	public String insertCoronaBatch(String param) {
 
@@ -120,7 +121,7 @@ public class CoronaControllerImpl implements CoronaController {
 		String dateStr = sdf.format(new Date());
 
 		try {
-			URL url = new URL(CORONA_URL + "serviceKey=" + SERVICE_KEY + "&pageNo=1&numOfRows=19&startCreateDt=" + dateStr + "&endCreateDt=" + dateStr);
+			URL url = new URL(CORONA_URL + "serviceKey=" + SERVICE_KEY + "&pageNo=1&numOfRows=19&startCreateDt=" + "20210923" + "&endCreateDt=" + "20210923");
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			int responseCode = conn.getResponseCode();
 
