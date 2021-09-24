@@ -121,7 +121,7 @@ public class CoronaControllerImpl implements CoronaController {
 		String dateStr = sdf.format(new Date());
 
 		try {
-			URL url = new URL(CORONA_URL + "serviceKey=" + SERVICE_KEY + "&pageNo=1&numOfRows=19&startCreateDt=" + "20210923" + "&endCreateDt=" + "20210923");
+			URL url = new URL(CORONA_URL + "serviceKey=" + SERVICE_KEY + "&pageNo=1&numOfRows=19&startCreateDt=" + dateStr + "&endCreateDt=" + dateStr);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			int responseCode = conn.getResponseCode();
 
